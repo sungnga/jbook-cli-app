@@ -19,4 +19,9 @@ The codebase for each step can be found in the commit link
 - ESBuild docs: https://esbuild.github.io/
 - We need to get access (download) the web assembly binary (wasm) inside of our React app
 - Go into node_modules folder -> esbuild-wasm folder, and copy the esbuild.wasm file. Paste the file in public folder
-- The reason why we're doing this is we need this esbuild web assembly inside of our browser. Every file that's placed inside the public directory of a create-react-app can be fetched very easily from inside the browser. This way the esbuild-wasm can fetch the binary code and does the transpiling for us 
+- The reason why we're doing this is we need this esbuild web assembly inside of our browser. Every file that's placed inside the public directory of a create-react-app can be fetched very easily from inside the browser. This way the esbuild-wasm can fetch the binary code and does the transpiling for us
+
+### Initializing ESBuild 
+- Initialize ESBuild by calling `esbuild.startService()`
+- What we get back is a service which we can use in our app to transpile and bundle code
+- We only want to start this service once when our app is first loaded. So we make use of useEffect() to call this service

@@ -1,9 +1,24 @@
-import { useState } from 'react';
+import * as esbuild from 'esbuild-wasm';
+import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 function App() {
 	const [input, setInput] = useState('');
 	const [code, setCode] = useState('');
+
+	// Initialize esbuild
+	// service is what we will use to transpile and bundle our code
+	async function startService() {
+		const service = await esbuild.startService({
+			worker: true,
+			wasmURL: '/esbuild.wasm'
+		});
+		console.log(service);
+	}
+
+	useEffect(() => {
+		startService();
+	}, []);
 
 	function onClick() {
 		console.log(input);
