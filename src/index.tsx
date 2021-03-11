@@ -21,10 +21,18 @@ function App() {
 		startService();
 	}, []);
 
-	function onClick() {
+	async function onClick() {
 		if (!ref.current) return;
 
-		console.log(ref.current);
+		// console.log(ref.current);
+		// Transpiling code
+		const result = await ref.current.transform(input, {
+			loader: 'jsx',
+			target: 'es2015'
+		});
+
+		// console.log(result)
+		setCode(result.code);
 	}
 
 	return (

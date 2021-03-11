@@ -29,3 +29,7 @@ The codebase for each step can be found in the commit link
 ### Using refs for arbitrary values
 - We want to make use of useRef() hook to keep a reference to a value inside of a component
 - In our case, we want to keep a reference of the `service` value by assigning it to `ref.current`. We can then refer to `ref.current` anywhere inside of our component. This will give us a reference to the service we create through ESBuild. We can then use that to do our transpiling and bundling
+
+### Transpiling code
+- The transform function will transpile the provided code only and it's an asynchronous operation
+- After we transpiled the code, we want to store the result in code state so that we can display it on our page
