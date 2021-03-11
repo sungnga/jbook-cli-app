@@ -1,7 +1,26 @@
+import { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 function App() {
-	return <h1>Hi there!</h1>;
+	const [input, setInput] = useState('');
+	const [code, setCode] = useState('');
+
+	function onClick() {
+		console.log(input);
+	}
+
+	return (
+		<div>
+			<textarea
+				value={input}
+				onChange={(e) => setInput(e.target.value)}
+			></textarea>
+			<div>
+				<button onClick={onClick}>Submit</button>
+			</div>
+			<pre>{code}</pre>
+		</div>
+	);
 }
 
 ReactDOM.render(<App />, document.querySelector('#root'));
