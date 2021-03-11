@@ -25,3 +25,7 @@ The codebase for each step can be found in the commit link
 - Initialize ESBuild by calling `esbuild.startService()`
 - What we get back is a service which we can use in our app to transpile and bundle code
 - We only want to start this service once when our app is first loaded. So we make use of useEffect() to call this service
+
+### Using refs for arbitrary values
+- We want to make use of useRef() hook to keep a reference to a value inside of a component
+- In our case, we want to keep a reference of the `service` value by assigning it to `ref.current`. We can then refer to `ref.current` anywhere inside of our component. This will give us a reference to the service we create through ESBuild. We can then use that to do our transpiling and bundling
