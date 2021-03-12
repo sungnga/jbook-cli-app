@@ -1,5 +1,10 @@
 import * as esbuild from 'esbuild-wasm';
 import axios from 'axios';
+import localForage from 'localforage';
+
+const fileCache = localForage.createInstance({
+	name: 'filecache'
+});
 
 export const unpkgPathPlugin = () => {
 	return {
@@ -8,9 +13,11 @@ export const unpkgPathPlugin = () => {
 			// The args is an object contains path, importer, namespace, and resolveDir properties
 			build.onResolve({ filter: /.*/ }, async (args: any) => {
 				console.log('onResolve', args);
+
 				if (args.path === 'index.js') {
 					return { path: args.path, namespace: 'a' };
 				}
+
 				// If the next file we're looking for has a relative path
 				// Update the URL constructor to include the resolveDir
 				// We just want the path in the href property of the url object
@@ -47,17 +54,27 @@ export const unpkgPathPlugin = () => {
 					};
 				}
 
+				// Check to see if we have already fetched this file
+				// and if it is in the cache
+				const cachedResult = await fileCache.getItem(args.path);
+
+				// If it is, return it immediately
+				if (cachedResult) return cachedResult;
+
 				const { data, request } = await axios.get(args.path);
-				// console.log(request);
-				// console.log(data)
 				// resolveDir is going to be provided to the next file we try to resolve
 				// It describes where we found the last file,
 				// the file where we first find the main module
-				return {
+				const result = {
 					loader: 'jsx',
 					contents: data,
 					resolveDir: new URL('./', request.responseURL).pathname
 				};
+
+				// Store response in cache
+				await fileCache.setItem(args.path, result);
+
+				return result;
 			});
 		}
 	};

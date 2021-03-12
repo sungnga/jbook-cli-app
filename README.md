@@ -147,3 +147,16 @@ The codebase for each step can be found in the commit link
   - `warning: Define "process.env.NODE_ENV" when bundling for the browser`
 - We need to setup ESBuild define the value of "process.env.NODE_ENV" whenever we're doing a bundling
 - We do the bundling in the ref.current.build() method and this is where we can include the `define` property
+
+
+## CACHING FOR BIG PERFORMANCE GAINS
+
+### Implementing a caching layer
+- Whenever the onLoad function is about to make a request to unpkg.com, we want to implement a caching layer. In this cache object, we want to see if we have fetched that package before. If so, return it immediately. Otherwise, make the request and store the response inside the cache, and then return the response off to onLoad
+- onLoad -> cache object -> unpkg.com
+- We don't want to store our cache data in localStorage, because it maybe contain a lot of data and may potentially get deleted out of localStorage
+- An alternative method of storing information inside the browser is indexedDB. Similar to localStorage, it's an information store that we can make use of inside the browser and can store much more information than localStorage
+- We're going to use a helper library called localforage to help us work easier with indexedDB. It falls back on localStorage if the user's browser doesn't have indexedDB or WebSQL support
+- Import: `npm i localforage`
+- Caching with key-value pairs in the onLoad function after we made a request and fetched the data
+  - The key is the path.args and the value is the return object from onLoad
