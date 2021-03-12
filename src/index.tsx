@@ -38,7 +38,11 @@ function App() {
 			entryPoints: ['index.js'],
 			bundle: true,
 			write: false,
-			plugins: [unpkgPathPlugin()]
+			plugins: [unpkgPathPlugin()],
+			define: {
+				'process.env.NODE_ENV': '"production"',
+				global: 'window'
+			}
 		});
 
 		// console.log(result);

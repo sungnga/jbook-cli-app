@@ -41,15 +41,15 @@ export const unpkgPathPlugin = () => {
 					return {
 						loader: 'jsx',
 						contents: `
-              const message = require('nested-test-pkg');
-              console.log(message);
+              import React, { useState } from 'react';
+              console.log(React, useState);
             `
 					};
 				}
 
-        const { data, request } = await axios.get(args.path);
+				const { data, request } = await axios.get(args.path);
 				// console.log(request);
-        // console.log(data)
+				// console.log(data)
 				// resolveDir is going to be provided to the next file we try to resolve
 				// It describes where we found the last file,
 				// the file where we first find the main module

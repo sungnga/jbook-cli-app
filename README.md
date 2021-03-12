@@ -8,6 +8,7 @@ The codebase for each step can be found in the commit link
   - `npx create-react-app jbook-cli-app --template typescript --use-npm`
 - Install esbuild package
   - `npm i --save-exact esbuild-wasm@0.8.27`
+  - ESBuild will allow us to transpile and bundle our code in the browser
 - Delete all the files in src folder and create an index.tsx file. Render a simple text to make sure the app works
 
 ### Creating basic form elements
@@ -45,7 +46,7 @@ The codebase for each step can be found in the commit link
 ## DYNAMIC FETCHING & LOADING OF NPM MODULES
 
 ### Dynamically fetching modules
-- If we try to fetch a file with a path besides index.js, then we make a request with axios to args.path(url). And this should give us back the contents of whatever file is at that url
+- If we try to fetch a file with a path besides index.js (usually as the entry point to a given module), then we make a request with axios to args.path(url). And this should give us back the contents of whatever file is at that url
 - Then we want to take the data we've fetched, the contents of that file, and return an object from onLoad(). This object contains the contents that the ESBuild is trying to get of the file by accessing the file system. And we're providing it the contents here
 
 ### Generating the unpkg URL using the URL constructor
@@ -138,3 +139,11 @@ The codebase for each step can be found in the commit link
       };
       ```
     - Note that this file doesn't have another import/require module. So it won't try to go find the next file
+
+### Setup defines during bundling
+- ESBuild define docs: https://esbuild.github.io/api/#define
+- Define allows us to define a value inside of code whenever we are doing a bundling process
+- When bundling we get a warning message
+  - `warning: Define "process.env.NODE_ENV" when bundling for the browser`
+- We need to setup ESBuild define the value of "process.env.NODE_ENV" whenever we're doing a bundling
+- We do the bundling in the ref.current.build() method and this is where we can include the `define` property
