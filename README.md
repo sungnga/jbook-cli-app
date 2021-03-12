@@ -50,4 +50,91 @@ The codebase for each step can be found in the commit link
 
 ### Generating the unpkg URL using the URL constructor
 - The URL constructor will generate a url object, but we only want the href property inside of it. The href property has the fully form url
-- This is still a naive approach to generating a path which doesn't handle all test case
+- This is still a naive approach to generating a path which doesn't work in all possible cases
+
+### Resolving nested paths
+- We want to bundle a module that has some nested file path inside of it
+- In the onLoad function, we can provide the resolveDir property to the next file we're trying to resolve. The resolveDir describes where we found the last file of the import module
+- Now the onResolve function receives as args an object that contains path, importer, namespace, and resolveDir properties
+  - If the next file we're looking for is a relative path, update the URL constructor to include the resolveDir
+- An example process to fetching a nested utils module:
+  - onResolve
+    - `{path: "index.js", importer: "", namespace: "", resolveDir: ""}`
+    - ```ts
+      if (args.path === 'index.js') {
+        return { path: args.path, namespace: 'a' };
+      }
+      ```
+  - onLoad
+    - `{path: "index.js", namespace: "a"}`
+    - ```ts
+      if (args.path === 'index.js') {
+        return {
+          loader: 'jsx',
+          contents: `
+            const message = require('nested-test-pkg');
+            console.log(message);
+          `
+        };
+      }
+      ```
+  - onResolve
+    - `{path: "nested-test-pkg", importer: "index.js", namespace: "a", resolveDir: ""}`
+    - ```ts
+      return {
+        namespace: 'a',
+        path: `https://unpkg.com/${args.path}`
+      };
+      ```
+  - onLoad
+    - `{path: "https://unpkg.com/nested-test-pkg", namespace: "a"}`
+    - ```ts
+      const { data, request } = await axios.get(args.path);
+      return {
+        loader: 'jsx',
+        contents: data,
+        resolveDir: new URL('./', request.responseURL).pathname
+      };
+      ```
+  - XMLHttpRequest 
+    - `{responseURL: "https://unpkg.com/nested-test-pkg@1.0.0/src/index.js"}`
+  - Data returned from request in index.js file
+    - ```
+      const toUpperCase = require('./helpers/utils');
+
+      const message = 'hi there';
+
+      module.exports = toUpperCase(message);
+      ```
+  - onResolve
+    - `{path: "./helpers/utils", importer: "https://unpkg.com/nested-test-pkg", namespace: "a", resolveDir: "/nested-test-pkg@1.0.0/src"}`
+    - ```ts
+      if (args.path.includes('./') || args.path.includes('../')) {
+        return {
+          namespace: 'a',
+          path: new URL(
+            args.path,
+            'https://unpkg.com' + args.resolveDir + '/'
+          ).href
+        };
+      }
+      ```
+  - onLoad
+    - `{path: "https://unpkg.com/nested-test-pkg@1.0.0/src/helpers/utils", namespace: "a"}`
+    - ```ts
+      const { data, request } = await axios.get(args.path);
+      return {
+        loader: 'jsx',
+        contents: data,
+        resolveDir: new URL('./', request.responseURL).pathname
+      };
+      ```
+  - XMLHttpRequest
+    - `{responseURL: "https://unpkg.com/nested-test-pkg@1.0.0/src/helpers/utils.js"}`
+  - Data returned from request in utils.js file
+    - ```
+      module.exports = function (str) {
+        return str.toUpperCase();
+      };
+      ```
+    - Note that this file doesn't have another import/require module. So it won't try to go find the next file
