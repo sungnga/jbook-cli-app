@@ -47,3 +47,7 @@ The codebase for each step can be found in the commit link
 ### Dynamically fetching modules
 - If we try to fetch a file with a path besides index.js, then we make a request with axios to args.path(url). And this should give us back the contents of whatever file is at that url
 - Then we want to take the data we've fetched, the contents of that file, and return an object from onLoad(). This object contains the contents that the ESBuild is trying to get of the file by accessing the file system. And we're providing it the contents here
+
+### Generating the unpkg URL using the URL constructor
+- The URL constructor will generate a url object, but we only want the href property inside of it. The href property has the fully form url
+- This is still a naive approach to generating a path which doesn't handle all test case
