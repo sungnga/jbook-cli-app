@@ -33,3 +33,10 @@ The codebase for each step can be found in the commit link
 ### Transpiling code
 - The transform function will transpile the provided code only and it's an asynchronous operation
 - After we transpiled the code, we want to store the result in code state so that we can display it on our page
+
+### ESBuild bundling using unpkgPathPlugin
+- When ESBuild is going through the process of bundling our code and when it sees lines of code like 'import/export/export.module', it tries to find the module in the file system
+- We want to intercept this step and provide it the path to the module ourselves. We intercept this process with help of the unpkg-path-plugin
+- The unpkg.com site will automatically return the path (usually found in the index.js file of a module) of a given NPM module
+- In the unpkg-path-plugin.ts file, we overwrite the ESBuild's .onResolve() and .onLoad() functions
+- For now we're just going hard-code in the import module just to test that the ESBuild bundling works

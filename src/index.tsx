@@ -1,6 +1,7 @@
 import * as esbuild from 'esbuild-wasm';
 import { useEffect, useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
+import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 
 function App() {
 	const ref = useRef<any>();
@@ -23,16 +24,25 @@ function App() {
 
 	async function onClick() {
 		if (!ref.current) return;
-
 		// console.log(ref.current);
-		// Transpiling code
-		const result = await ref.current.transform(input, {
-			loader: 'jsx',
-			target: 'es2015'
+
+		// // Transpiling code
+		// const result = await ref.current.transform(input, {
+		// 	loader: 'jsx',
+		// 	target: 'es2015'
+		// });
+		// setCode(result.code);
+
+		// Bundling code
+		const result = await ref.current.build({
+			entryPoints: ['index.js'],
+			bundle: true,
+			write: false,
+			plugins: [unpkgPathPlugin()]
 		});
 
-		// console.log(result)
-		setCode(result.code);
+		console.log(result)
+		setCode(result.outputFiles[0].text);
 	}
 
 	return (
