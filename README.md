@@ -173,5 +173,8 @@ The codebase for each step can be found in the commit link
 ### Refactoring by breaking up resolve logic with filters
 - We can define multiple different onResolve functions and use the filter to control the way in which we actually resolve a path rather than these if statements  
 
+### Refactoring to multiple plugins
+- Let's take the all the logic code around onLoad and extract it into a separate second plugin file. This will make it easier for us to understand all the different plugins inside of our project and it will make it easier to reuse these plugins in the future as our project grows
+- Import the second plugin file in the main index.tsx file and then call the plugin method inside the plugins array
 
 
