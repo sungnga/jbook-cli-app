@@ -170,4 +170,8 @@ The codebase for each step can be found in the commit link
 - The unpkgPathPlugin function in the plugin file should receive the inputCode value as a parameter. Then in the onLoad function, if args.path is equal to index.js, we provide that value to the `contents` property
 - So when a user submits a piece of code, ESBuild should be able to bundle that code
 
+### Refactoring by breaking up resolve logic with filters
+- We can define multiple different onResolve functions and use the filter to control the way in which we actually resolve a path rather than these if statements  
+
+
 
