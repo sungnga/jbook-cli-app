@@ -56,7 +56,9 @@ export const unpkgPathPlugin = () => {
 
 				// Check to see if we have already fetched this file
 				// and if it is in the cache
-				const cachedResult = await fileCache.getItem(args.path);
+				const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(
+					args.path
+				);
 
 				// If it is, return it immediately
 				if (cachedResult) return cachedResult;
@@ -65,7 +67,7 @@ export const unpkgPathPlugin = () => {
 				// resolveDir is going to be provided to the next file we try to resolve
 				// It describes where we found the last file,
 				// the file where we first find the main module
-				const result = {
+				const result: esbuild.OnLoadResult = {
 					loader: 'jsx',
 					contents: data,
 					resolveDir: new URL('./', request.responseURL).pathname

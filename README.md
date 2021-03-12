@@ -145,7 +145,7 @@ The codebase for each step can be found in the commit link
 - Define allows us to define a value inside of code whenever we are doing a bundling process
 - When bundling we get a warning message
   - `warning: Define "process.env.NODE_ENV" when bundling for the browser`
-- We need to setup ESBuild define the value of "process.env.NODE_ENV" whenever we're doing a bundling
+- We need to setup ESBuild to define the value of "process.env.NODE_ENV" whenever we're doing a bundling
 - We do the bundling in the ref.current.build() method and this is where we can include the `define` property
 
 
@@ -160,3 +160,8 @@ The codebase for each step can be found in the commit link
 - Import: `npm i localforage`
 - Caching with key-value pairs in the onLoad function after we made a request and fetched the data
   - The key is the path.args and the value is the return object from onLoad
+
+### Fixing a Typescript error while caching
+
+
+
