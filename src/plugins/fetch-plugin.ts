@@ -24,20 +24,37 @@ export const fetchPlugin = (inputCode: string) => {
 
 				// Check to see if we have already fetched this file
 				// and if it is in the cache
-				const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(
-					args.path
-				);
+				// const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(
+				// 	args.path
+				// );
 
-				// If it is, return it immediately
-				if (cachedResult) return cachedResult;
+				// // If it is, return it immediately
+				// if (cachedResult) return cachedResult;
 
 				const { data, request } = await axios.get(args.path);
-				// resolveDir is going to be provided to the next file we try to resolve
-				// It describes where we found the last file,
-				// the file where we first find the main module
+
+				const fileType = args.path.match(/.css$/) ? 'css' : 'jsx';
+
+				// Escaped CSS string that can be safely inserted into JS snippet
+				// Collapse all the newline characters into a single line
+				// Find all the double quotes and escape them
+				// Find all the single quotes and escape them
+				const escaped = data
+					.replace(/\n/g, '')
+					.replace(/"/g, '\\"')
+					.replace(/'/g, "\\'");
+				const contents =
+					fileType === 'css'
+						? `
+            const style = document.createElement('style');
+            style.innerText = '${escaped}';
+            document.head.appendChild(style);
+          `
+						: data;
+
 				const result: esbuild.OnLoadResult = {
 					loader: 'jsx',
-					contents: data,
+					contents,
 					resolveDir: new URL('./', request.responseURL).pathname
 				};
 
