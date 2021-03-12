@@ -40,3 +40,10 @@ The codebase for each step can be found in the commit link
 - The unpkg.com site will automatically return the path (usually found in the index.js file of a module) of a given NPM module
 - In the unpkg-path-plugin.ts file, we overwrite the ESBuild's .onResolve() and .onLoad() functions
 - For now we're just going hard-code in the import module just to test that the ESBuild bundling works
+
+
+## DYNAMIC FETCHING & LOADING OF NPM MODULES
+
+### Dynamically fetching modules
+- If we try to fetch a file with a path besides index.js, then we make a request with axios to args.path(url). And this should give us back the contents of whatever file is at that url
+- Then we want to take the data we've fetched, the contents of that file, and return an object from onLoad(). This object contains the contents that the ESBuild is trying to get of the file by accessing the file system. And we're providing it the contents here
