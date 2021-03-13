@@ -50,6 +50,12 @@ function App() {
 		setCode(result.outputFiles[0].text);
 	}
 
+	const html = `
+    <script>
+      ${code}
+    </script>
+  `;
+
 	return (
 		<div>
 			<textarea
@@ -60,7 +66,7 @@ function App() {
 				<button onClick={onClick}>Submit</button>
 			</div>
 			<pre>{code}</pre>
-			<iframe title='test' src='/test.html' />
+			<iframe sandbox='allow-scripts' title='test' srcDoc={html} />
 		</div>
 	);
 }
