@@ -293,3 +293,7 @@ The codebase for each step can be found in the commit link
   - Set the font size to 16
   - Don't allow user to scroll beyond the last line
   - Allow the editor to relay itself correctly when the user shrinks or expands the editor
+
+### Setting the initial value for Editor
+- When a user opens our application, we want to display an initial value inside of the code editor. It can be anything
+- We need to define a CodeEditorProps interface for our CodeEditor component to be able to receive props
