@@ -199,7 +199,7 @@ The codebase for each step can be found in the commit link
 
 ## SAFELY HANDLING UNTRUSTED CODE EXECUTION
 
-#### Considerations around code execution
+### Considerations around code execution
 - User-provided code might throw errors and cause our program to crash
   - Solution: if we execute a user's code in an iframe
   - Won't crash our application
@@ -255,3 +255,7 @@ The codebase for each step can be found in the commit link
 ### Passing code to the iframe
 - Even though we disabled direct communication between frames, we can still have some indirect communication between frames using addEventListener. The parent document can listen for some message from the child frame and vice versa
 - When a user submits their code -> we're going to bundle that code -> we're going to emit an event down to the iframe -> the iframe should receive that event and that event should contain all of our code -> the iframe can then execute that bundle code by calling eval() on event.data -> the result would be displayed in the iframe
+
+### Highlighting errors in iframe
+- If an error occurs while iframe executes the user's code, we not only want to display the error in the browser console, we also want to display the error message in the iframe. This way the user can see what just went wrong even if they don't have their development console open
+- We style the error message in red color
