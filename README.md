@@ -190,3 +190,8 @@ The codebase for each step can be found in the commit link
 ### Extracting common caching logic
 - Let's extract the duplicated caching logic into its own separate onLoad function. If we already have the fetched file cached in indexedDB, then we're just going to return the cachedResult
 
+### A better way of loading WASM
+- Previously, the way we load the esbuild.wasm (web assembly binary) file into our browser is by dragging the file into the public directory of our project. We've been hosting this web assembly ourselves in the public directory
+- A better approach is to provide a link of the web assembly binary that is hosted on unpkg.com
+- So whenever we start up ESBuild it'll go fetch the web assembly binary from unpkg.com instead
+  - `wasmURL: 'https://unpkg.com/esbuild-wasm@0.8.27/esbuild.wasm'`
