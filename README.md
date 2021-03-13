@@ -180,7 +180,9 @@ The codebase for each step can be found in the commit link
 ### Loading CSS files
 - Docs for loading CSS files: https://esbuild.github.io/content-types/#css
 - Whenever ESBuild does some bundling, if we import CSS, ESBuild is going to output two separate files. The first containing all the JS code and the second containing all the CSS. In a normal circumstance, ESBuild will write these two output files to a file system. However, in our app, we don't have a file system for ESBuild to write to. We will get an error when we import a CSS file, even though we successfully able to fetch the CSS data from unpkg.com
-- One work-around is to inject the CSS data into a JS code snippet and insert it into the DOM
+- One work-around is to inject the CSS data into a JS code snippet and insert it in the head tag of the browser DOM
 - If the fileType is `css`, then we use this JS code snippet as contents property. Otherwise, use the data that we get back from the request as contents 
 
-
+### Refactoring onLoad with load filters
+- We want to create different onLoad functions to handle different file types
+- We want to handle the index.js file, the CSS files, and any other arbitrary files

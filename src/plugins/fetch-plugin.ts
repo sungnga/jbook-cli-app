@@ -10,31 +10,27 @@ export const fetchPlugin = (inputCode: string) => {
 	return {
 		name: 'fetch-plugin',
 		setup(build: esbuild.PluginBuild) {
-			// The args is an object contains the path and namespace properties
-			build.onLoad({ filter: /.*/ }, async (args: any) => {
-				// If we try to fetch a file with a path besides index.js
-				// then we make a request with axios to args.path(url)
-				// This should give us back the contents of whatever file is at that url
-				if (args.path === 'index.js') {
-					return {
-						loader: 'jsx',
-						contents: inputCode
-					};
-				}
+			// Handle loading index.js file
+			build.onLoad({ filter: /(^index\.js$)/ }, () => {
+				return {
+					loader: 'jsx',
+					contents: inputCode
+				};
+			});
 
+			// Handle loading CSS files
+			// The args is an object contains the path and namespace properties
+			build.onLoad({ filter: /.css$/ }, async (args: any) => {
 				// Check to see if we have already fetched this file
 				// and if it is in the cache
-				// const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(
-				// 	args.path
-				// );
+				const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(
+					args.path
+				);
 
-				// // If it is, return it immediately
-				// if (cachedResult) return cachedResult;
+				// If it is, return it immediately
+				if (cachedResult) return cachedResult;
 
 				const { data, request } = await axios.get(args.path);
-
-				const fileType = args.path.match(/.css$/) ? 'css' : 'jsx';
-
 				// Escaped CSS string that can be safely inserted into JS snippet
 				// Collapse all the newline characters into a single line
 				// Find all the double quotes and escape them
@@ -43,18 +39,40 @@ export const fetchPlugin = (inputCode: string) => {
 					.replace(/\n/g, '')
 					.replace(/"/g, '\\"')
 					.replace(/'/g, "\\'");
-				const contents =
-					fileType === 'css'
-						? `
+				const contents = `
             const style = document.createElement('style');
             style.innerText = '${escaped}';
             document.head.appendChild(style);
-          `
-						: data;
+          `;
 
 				const result: esbuild.OnLoadResult = {
 					loader: 'jsx',
 					contents,
+					resolveDir: new URL('./', request.responseURL).pathname
+				};
+
+				// Store response in cache
+				await fileCache.setItem(args.path, result);
+
+				return result;
+			});
+
+			// Handle any arbitrary files
+			build.onLoad({ filter: /.*/ }, async (args: any) => {
+				// Check to see if we have already fetched this file
+				// and if it is in the cache
+				const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(
+					args.path
+				);
+
+				// If it is, return it immediately
+				if (cachedResult) return cachedResult;
+
+				const { data, request } = await axios.get(args.path);
+
+				const result: esbuild.OnLoadResult = {
+					loader: 'jsx',
+					contents: data,
 					resolveDir: new URL('./', request.responseURL).pathname
 				};
 
