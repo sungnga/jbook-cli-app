@@ -201,10 +201,49 @@ The codebase for each step can be found in the commit link
 
 #### Considerations around code execution
 - User-provided code might throw errors and cause our program to crash
+  - Solution: if we execute a user's code in an iframe
+  - Won't crash our application
 - Use-provided code might mutate the DOM, causing our program to crash
+  - Solution: if we execute a user's code in an iframe
+  - If the user decides to mutate the DOM, they're mutating the DOM inside the iframe, not our parent document
 - A user might accidentally run code provided by another malicious user
+  - Solution: if we execute a user's code in an iframe with direct communication disabled
+  - The user's JS code is being executed inside the iframe, so any malicious code cannot affect the parent document
 - A use might accidentally run code in infinite loop causing the browser to crash
 
 ### Displaying iframes
 - An iframe element is used to embed one html document into another. This is usually what an iframe is used for
-- Create an html file in public directory. Then create an iframe element inside the App component. We're going to use this iframe element to embed the html file to display its content
+- Create an html doc in public directory. Then create an iframe element inside the App component. We're going to use this iframe element to embed the html doc to display its content
+
+### Direct access between frames
+- Crossing context
+  - The current settings of our iframe **allow** communication between the parent and the child. Can reach from the parent into the child iframe and vice versa and get access to different properties
+- A direct access between frames is **allowed** when...
+  - The iframe element does not have a `sandbox` property, or has a `sandbox="allow-same-origin"` property
+  - **AND**
+  - We fetch the parent HTML doc and the frame HTML doc from the exact same...
+    - Domain
+    - Port
+    - Protocol (http vs https)
+- To disallow direct access between frames...
+  - In iframe element, add `sandbox=""`. This will isolate the contents from the iframe and add an extra layer of security
+  - Or have the parent doc and the child doc served on different server ports
+
+### The solutions for our app
+- Sandboxing the child frame from the parent document, so there's no direct communication between frames and the child frame cannot have access to the parent contents
+- The child doc and the parent doc will be served on the same localhost. We don't have to build an extra infrastructure to host the html doc on a different server and make the extra request to fetch the html doc. So our app will be very fast
+- However, the downside to this approach is the child frame will be restricted from several in-browser features such as accessing localStorage or cookies, or run any Javascript code through scripts
+
+### Our app flow
+- We want to run something like 'jbook serve'
+- This should start a server on localhost:4005
+- User will write code into an editor
+- We bundle in the browser
+- We execute the user's code in iframe
+
+### iframes with srcDocs
+- In the iframe element, when we set the `src` property to some location, iframe will make a request to some external site to get the content
+- However, the `srcDoc` property allows us to load up some content into an iframe using a string
+- So we can make use of the `srcDoc` property to get the child frame html doc right inside of our application
+- Even though the content of the child frame is generated locally inside of our app, by adding that `sandbox=""` in the iframe element, we are preventing communication between the child and the prevent
+
