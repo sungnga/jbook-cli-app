@@ -8,7 +8,6 @@ function App() {
 	const ref = useRef<any>();
 	const iframe = useRef<any>();
 	const [input, setInput] = useState('');
-	const [code, setCode] = useState('');
 
 	// Initialize esbuild
 	// service is what we will use to transpile and bundle our code
@@ -28,12 +27,7 @@ function App() {
 		if (!ref.current) return;
 		// console.log(ref.current);
 
-		// // Transpiling code
-		// const result = await ref.current.transform(input, {
-		// 	loader: 'jsx',
-		// 	target: 'es2015'
-		// });
-		// setCode(result.code);
+		iframe.current.srcdoc = html;
 
 		// Bundling code
 		const result = await ref.current.build({
@@ -46,9 +40,6 @@ function App() {
 				global: 'window'
 			}
 		});
-
-		// console.log(result);
-		// setCode(result.outputFiles[0].text);
 
 		// 2nd arg specifies the valid domains that can receive this message
 		// The * means any domains can receive this message
@@ -84,8 +75,12 @@ function App() {
 			<div>
 				<button onClick={onClick}>Submit</button>
 			</div>
-			<pre>{code}</pre>
-			<iframe ref={iframe} sandbox='allow-scripts' title='test' srcDoc={html} />
+			<iframe
+				ref={iframe}
+				sandbox='allow-scripts'
+				title='preview'
+				srcDoc={html}
+			/>
 		</div>
 	);
 }

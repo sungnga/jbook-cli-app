@@ -259,3 +259,15 @@ The codebase for each step can be found in the commit link
 ### Highlighting errors in iframe
 - If an error occurs while iframe executes the user's code, we not only want to display the error in the browser console, we also want to display the error message in the iframe. This way the user can see what just went wrong even if they don't have their development console open
 - We style the error message in red color
+
+### Resetting the iframe contents
+- Let's say a user enters in some code and submits it, and then they add/delete more code or edit existing code and submit again. Now, we want to ensure that *each time before* a user's code get executed again, that it resets/reloads the entire iframe html document to its original state. It does a full refresh of the contents of the iframe
+- This way a user will always have a very consistent environment and to make sure that we don't get any leakage of variables or states between different executions of their code
+- To do this, right before we start the bundling process, we're going to update the `srcdoc` property of the iframe manually. We set the iframe.current `srcdoc` property to the html string that we created for the iframe html doc
+- To test this out that the iframe html doc has been reset:
+  - First enter in: `document.body.innerHTML = '';`
+  - This empties out the body tag and also removes our root id
+  - Then enter: `console.log(document.querySelector('#root'));`
+  - We should get back a div tag that contains a root id
+
+
