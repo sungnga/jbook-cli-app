@@ -297,3 +297,7 @@ The codebase for each step can be found in the commit link
 ### Setting the initial value for Editor
 - When a user opens our application, we want to display an initial value inside of the code editor. It can be anything
 - We need to define a CodeEditorProps interface for our CodeEditor component to be able to receive props
+
+### Handling Editor change events
+- We want to update the value of input state in our App component whenever there's a change inside the Editor
+- So we add an onChange props to the CodeEditor component and add a callback to call the setInput() to set the input state with the value coming from the code editor
