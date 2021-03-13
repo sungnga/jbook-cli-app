@@ -18,9 +18,7 @@ export const fetchPlugin = (inputCode: string) => {
 				};
 			});
 
-			// Handle loading CSS files
-			// The args is an object contains the path and namespace properties
-			build.onLoad({ filter: /.css$/ }, async (args: any) => {
+			build.onLoad({ filter: /.*/ }, async (args: any) => {
 				// Check to see if we have already fetched this file
 				// and if it is in the cache
 				const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(
@@ -29,7 +27,11 @@ export const fetchPlugin = (inputCode: string) => {
 
 				// If it is, return it immediately
 				if (cachedResult) return cachedResult;
+			});
 
+			// Handle loading CSS files
+			// The args is an object contains the path and namespace properties
+			build.onLoad({ filter: /.css$/ }, async (args: any) => {
 				const { data, request } = await axios.get(args.path);
 				// Escaped CSS string that can be safely inserted into JS snippet
 				// Collapse all the newline characters into a single line
@@ -59,15 +61,6 @@ export const fetchPlugin = (inputCode: string) => {
 
 			// Handle any arbitrary files
 			build.onLoad({ filter: /.*/ }, async (args: any) => {
-				// Check to see if we have already fetched this file
-				// and if it is in the cache
-				const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(
-					args.path
-				);
-
-				// If it is, return it immediately
-				if (cachedResult) return cachedResult;
-
 				const { data, request } = await axios.get(args.path);
 
 				const result: esbuild.OnLoadResult = {

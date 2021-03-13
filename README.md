@@ -186,3 +186,7 @@ The codebase for each step can be found in the commit link
 ### Refactoring onLoad with load filters
 - We want to create different onLoad functions to handle different file types
 - We want to handle the index.js file, the CSS files, and any other arbitrary files
+
+### Extracting common caching logic
+- Let's extract the duplicated caching logic into its own separate onLoad function. If we already have the fetched file cached in indexedDB, then we're just going to return the cachedResult
+
