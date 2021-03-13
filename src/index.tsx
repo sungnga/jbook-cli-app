@@ -60,6 +60,7 @@ function App() {
 				<button onClick={onClick}>Submit</button>
 			</div>
 			<pre>{code}</pre>
+			<iframe title='test' src='/test.html' />
 		</div>
 	);
 }

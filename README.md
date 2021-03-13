@@ -195,3 +195,16 @@ The codebase for each step can be found in the commit link
 - A better approach is to provide a link of the web assembly binary that is hosted on unpkg.com
 - So whenever we start up ESBuild it'll go fetch the web assembly binary from unpkg.com instead
   - `wasmURL: 'https://unpkg.com/esbuild-wasm@0.8.27/esbuild.wasm'`
+
+
+## SAFELY HANDLING UNTRUSTED CODE EXECUTION
+
+#### Considerations around code execution
+- User-provided code might throw errors and cause our program to crash
+- Use-provided code might mutate the DOM, causing our program to crash
+- A user might accidentally run code provided by another malicious user
+- A use might accidentally run code in infinite loop causing the browser to crash
+
+### Displaying iframes
+- An iframe element is used to embed one html document into another. This is usually what an iframe is used for
+- Create an html file in public directory. Then create an iframe element inside the App component. We're going to use this iframe element to embed the html file to display its content
