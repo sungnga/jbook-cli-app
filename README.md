@@ -301,3 +301,7 @@ The codebase for each step can be found in the commit link
 ### Handling Editor change events
 - We want to update the value of input state in our App component whenever there's a change inside the Editor
 - So we add an onChange props to the CodeEditor component and add a callback to call the setInput() to set the input state with the value coming from the code editor
+
+### Adding a type definition to editorDidMount props
+- We need to manually import the EditorDidMount type definition file to add a type to the editorDidMount props in MonacoEditor component
+- Now that we added a type definition to MonacoEditor, we can update the editor's tab size to 2 instead of 4

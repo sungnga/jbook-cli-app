@@ -1,4 +1,5 @@
-import MonacoEditor from '@monaco-editor/react';
+// EditorDidMount is a type definition file
+import MonacoEditor, { EditorDidMount } from '@monaco-editor/react';
 
 interface CodeEditorProps {
 	initialValue: string;
@@ -6,9 +7,9 @@ interface CodeEditorProps {
 }
 
 const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
-  // 1st arg is a function to get the value inside the editor
+	// 1st arg is a function to get the value inside the editor
 	// 2nd arg is a reference to the editor itself
-	const onEditorDidMount = (getValue: () => string, monacoEditor: any) => {
+	const onEditorDidMount: EditorDidMount = (getValue, monacoEditor) => {
 		// This is how we get told when something
 		// inside the editor is changed
 		monacoEditor.onDidChangeModelContent(() => {
@@ -17,6 +18,8 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
 			// we're going to update the input state in App component
 			onChange(getValue());
 		});
+
+		monacoEditor.getModel()?.updateOptions({ tabSize: 2 });
 	};
 
 	return (
