@@ -271,3 +271,9 @@ The codebase for each step can be found in the commit link
   - We should get back a div tag that contains a root id
 
 
+## DISPLAYING A CODE EDITOR IN A REACT APP
+
+### Displaying a code editor
+- We are going to use an open source browser-based code editor called Monaco Editor. It will give us an almost-perfect editing experience such as syntax highlighting, autocomplete, code linting, etc.
+- Install: `npm i --save-exact @monaco-editor/react@3.7.5`
+- monaco-editor/react docs: `https://www.npmjs.com/package/@monaco-editor/react`
