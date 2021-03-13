@@ -277,3 +277,19 @@ The codebase for each step can be found in the commit link
 - We are going to use an open source browser-based code editor called Monaco Editor. It will give us an almost-perfect editing experience such as syntax highlighting, autocomplete, code linting, etc.
 - Install: `npm i --save-exact @monaco-editor/react@3.7.5`
 - monaco-editor/react docs: `https://www.npmjs.com/package/@monaco-editor/react`
+
+### Configuring the Monaco Editor
+- The Monaco Editor React component is a wrapper around the real Monaco Editor. We can provide different configuration options to the React component, but we can also apply some advanced config to the actual Monaco Editor
+- The different configs can be found in the Monaco Editor React type definition file. Cmd+click on the import module name
+- To see the different configs for the actual Monaco Editor itself, we need to install its monaco-editor package. We can then have access to its type definition file
+  - Install: `npm i monaco-editor`
+- Our editor configurations:
+  - Make the editor theme dark
+  - Set the language to javascript. We get all the JS syntax highlighting
+  - Turn on word-wrap
+  - Disable the editor mini-map
+  - Set showUnused statements to false
+  - Remove the extra spacing on the left side window
+  - Set the font size to 16
+  - Don't allow user to scroll beyond the last line
+  - Allow the editor to relay itself correctly when the user shrinks or expands the editor
