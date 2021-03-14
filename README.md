@@ -405,3 +405,14 @@ The codebase for each step can be found in the commit link
 ### Adding an execution timeout in Preview component
 - We can delay the postMessage function with a setTimeout. This is going to make sure that our browser has enough time to update the srcdoc and setup an event listener and watch for our postMessage attempt that's going to come about 50 milliseconds later
 - And now the result persists on the preview window
+
+
+## TECHNIQUES FOR ERROR HANDLING IN REACT APPS
+- There are 3 kinds of errors that might happen when we start to bundle and execute a user's code:
+  - A bundling error or syntax error - invalid code and we can't bundle it
+  - A synchronous runtime error - error during execution
+  - An asynchronous error - this error gets thrown at some future point in time
+
+### Extracting reusable error handling logic
+- Extract the error handling logic into its own function so that we can reuse it
+- Handling synchronous runtime error
