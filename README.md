@@ -356,5 +356,12 @@ The codebase for each step can be found in the commit link
 - We're going to use a library called React-Resizable to help us build the resize handle
 - Install: `npm i react-resizable @types/react-resizable`
 - Setting up React-Resizable:
-  - Create a Resizable component and define a ResizableProps interface for it. This component receives a direction props from the parent component. This component also receives a children props. This allows other components to render inside of this component. In our case, they're the CodeEditor and Preview components. Import the Resizable component from react-resizable
+  - Create a Resizable component and define a ResizableProps interface for it. This component receives a direction props from the parent component. This component also receives a children props. This allows other components to render inside of this component. In our case, they're the CodeEditor and Preview components. Import the ResizableBox component from react-resizable
   - Import the Resizable component in the CodeCell component. Render it and wrap both the CodeEditor and Preview components inside of it. Pass down a direction props and set it to "vertical"
+
+### Setting a resize handle, adding CSS
+- Render the ResizableBox component in the Resizable component
+- We can find a list of props that we want to provide to the ResizableBox component in the type def file
+  - The width and height props are the starting width and height. Must provide these to be able to see the component on screen
+  - The resizeHandles props specifies the location of where the handle is going to be - s, n, w, e, etc.
+- Import the Resizable.css file in the Resizable component
