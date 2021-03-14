@@ -324,3 +324,12 @@ The codebase for each step can be found in the commit link
 - We will be using two external libraries to help us out
 - Install: `npm i --save-exact monaco-jsx-highlighter@0.0.15 jscodeshift@0.11.0 @types/jscodeshift@0.7.2`
 - We will overwrite the default CSS styles of the syntax highlighter library with our own custom CSS
+
+
+## HOW TO EXTRACT REUSABLE COMPONENTS
+
+### Refactoring out a Preview component
+- We're going to extract all the code inside the App component that is related to an iframe that receives the bundle code, executes it, and displays the result into a separate component. The component is called Preview
+- The Preview component receives a code as props from the App parent component
+  - Define a PreviewProps interface and set it in the Preview component. This way any other components that use the Preview component must satisfy its condition
+- Import the Preview component in the App component. Render the Preview component and pass down to it the code state as code props
