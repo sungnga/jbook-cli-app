@@ -347,3 +347,14 @@ The codebase for each step can be found in the commit link
 - We may only have one App component, but we may have multiple code editors and multiple preview windows generated in our project. We may want to wrap our CodeEditor component and Preview component inside a more generic component called CodeCell component
 - Now we have a way to reuse a component that contains a single code editor and a single preview window
 - Import the CodeCell component in App component and we can render this component as many times as we want
+
+
+## DRAGGABLE RESIZING COMPONENTS
+
+### Adding resizable panes with React-Resizable library, setting up
+- Each CodeCell component has a CodeEditor component and a Preview component. They should display next to each other. We want to have a resize handle that allows us to drag from left to right to shrink/expand both the editor and the preview window. We want a second resize handle at the bottom of the CodeCell to expand/shrink both of the editor and preview window at the same time
+- We're going to use a library called React-Resizable to help us build the resize handle
+- Install: `npm i react-resizable @types/react-resizable`
+- Setting up React-Resizable:
+  - Create a Resizable component and define a ResizableProps interface for it. This component receives a direction props from the parent component. This component also receives a children props. This allows other components to render inside of this component. In our case, they're the CodeEditor and Preview components. Import the Resizable component from react-resizable
+  - Import the Resizable component in the CodeCell component. Render it and wrap both the CodeEditor and Preview components inside of it. Pass down a direction props and set it to "vertical"
