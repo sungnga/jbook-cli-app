@@ -293,6 +293,7 @@ The codebase for each step can be found in the commit link
   - Set the font size to 16
   - Don't allow user to scroll beyond the last line
   - Allow the editor to relay itself correctly when the user shrinks or expands the editor
+  - Remove the extra new line that gets added to the end after the code is formatted
 
 ### Setting the initial value for Editor
 - When a user opens our application, we want to display an initial value inside of the code editor. It can be anything
@@ -310,3 +311,11 @@ The codebase for each step can be found in the commit link
 - Install prettier and its type def file: `npm i prettier @types/prettier`
 - When a user clicks on the Format button, they will get automatic code formatting to their code. We specify what will get formatted
 - We use useRef() hook to reference the monacoEditor instance. We call .getValue() on it to get the value in the Editor. We format the value using prettier library. Then we call .setValue() on the editorRef to set the formatted value back in the Editor
+
+### Adding Bulma CSS library, floating the Format button
+- We're going to use Bulma CSS library to style our Editor and our project in general. We're going to use the bulmaswatch library because it has some extra features in it
+- Install: `npm i bulmaswatch`
+- We will apply the `superhero` theme to the overall look of our app
+- Add CSS styles to the Format button
+- Place the Format button inside of the Editor and only show the button when the user mouses over the Editor. And if the user is not in the Editor, we want to hide this button
+
