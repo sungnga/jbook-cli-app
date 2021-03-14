@@ -342,3 +342,8 @@ The codebase for each step can be found in the commit link
   - If it has, then start the bundling process by calling service.build()
   - Returns the bundled result
 - Import the bundle function in App component. When the user clicks the Submit button, the bundle function gets called with the input state as an argument. Once we get the back the bundled output, call setCode() to store it in code state
+
+### Refactoring for multiple editors and preview windows
+- We may only have one App component, but we may have multiple code editors and multiple preview windows generated in our project. We may want to wrap our CodeEditor component and Preview component inside a more generic component called CodeCell component
+- Now we have a way to reuse a component that contains a single code editor and a single preview window
+- Import the CodeCell component in App component and we can render this component as many times as we want
