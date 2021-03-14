@@ -33,7 +33,9 @@ const Preview: React.FC<PreviewProps> = ({ code }) => {
 
 		// 2nd arg specifies the valid domains that can receive this message
 		// The * means any domains can receive this message
-		iframe.current.contentWindow.postMessage(code, '*');
+		setTimeout(() => {
+			iframe.current.contentWindow.postMessage(code, '*');
+		}, 50);
 	}, [code]);
 
 	return (

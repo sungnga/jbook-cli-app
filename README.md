@@ -401,3 +401,7 @@ The codebase for each step can be found in the commit link
   - User types in editor -> input state updated -> cancel prev timer & set time to bundle in 1s
   - 1 second passes without any update to input state
   - Run bundling logic
+
+### Adding an execution timeout in Preview component
+- We can delay the postMessage function with a setTimeout. This is going to make sure that our browser has enough time to update the srcdoc and setup an event listener and watch for our postMessage attempt that's going to come about 50 milliseconds later
+- And now the result persists on the preview window
