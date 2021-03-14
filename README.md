@@ -360,8 +360,14 @@ The codebase for each step can be found in the commit link
   - Import the Resizable component in the CodeCell component. Render it and wrap both the CodeEditor and Preview components inside of it. Pass down a direction props and set it to "vertical"
 
 ### Setting a resize handle, adding CSS
-- Render the ResizableBox component in the Resizable component
+- Render the ResizableBox component in the Resizable component. The ResizableBox component can render children components. In our case, it will render the CodedEditor and Preview components
 - We can find a list of props that we want to provide to the ResizableBox component in the type def file
   - The width and height props are the starting width and height. Must provide these to be able to see the component on screen
   - The resizeHandles props specifies the location of where the handle is going to be - s, n, w, e, etc.
 - Import the Resizable.css file in the Resizable component
+
+### Expanding the resizer handle horizontally
+- We can delete the Submit button. We don't want a user have to click a button to run their code. Instead, whenever a user edits some code we immediately feed that code over to the Preview window/component and try to run it
+- Let's add some styling so that the CodeEditor and the Preview window show up next to each other horizontally. We want to set the flexDirection on the items inside the Resizable component to `row`
+- We want the ResizableBox component to take up the entire width of the browser window (100% width). Unfortunately the ResizableBox component does not support percentage widths. The work-around to this problem is to set the width property to `Infinity`. This allows the width to take up the horizontal space as possible
+- Now the resizer handle spans the entire width of the screen
