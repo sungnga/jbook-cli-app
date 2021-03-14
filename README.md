@@ -305,3 +305,8 @@ The codebase for each step can be found in the commit link
 ### Adding a type definition to editorDidMount props
 - We need to manually import the EditorDidMount type definition file to add a type to the editorDidMount props in MonacoEditor component
 - Now that we added a type definition to MonacoEditor, we can update the editor's tab size to 2 instead of 4
+
+### Adding prettier to our Editor
+- Install prettier and its type def file: `npm i prettier @types/prettier`
+- When a user clicks on the Format button, they will get automatic code formatting to their code. We specify what will get formatted
+- We use useRef() hook to reference the monacoEditor instance. We call .getValue() on it to get the value in the Editor. We format the value using prettier library. Then we call .setValue() on the editorRef to set the formatted value back in the Editor
