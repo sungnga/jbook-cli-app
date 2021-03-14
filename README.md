@@ -392,3 +392,12 @@ The codebase for each step can be found in the commit link
 - Currently, we've set the initial width of the editor to be 75% of the browser window width and the preview window to take up the remaining 25% width. A user can use the resizer handle to resize the widths of both. However, when they start to change or resize the browser window dimensions, the preview window jumps to its initial 25% width
 - This behavior happens because the ResizableBox component has its own internal width state. The Resizable component width prop gets updated with the new width, but the internal width state for the ResizableBox component never got updated as well. So when the browser window size changes, it causes the Resizable component to re-render and since the ResizableBox component is a child of it, ResizableBox gets re-render as well. It re-renders with the initial width state
 - We need to synchronize the width state of the ResizableBox whenever we update the width prop of the parent Resizable component
+
+### Adding debouncing logic
+- We want our user to be able to type into the code editor and then if they stop typing for about one second or so, we want to automatically take that code, bundle it, and execute it inside the preview window. We want all this to be automatic because we took out the Submit button that we had previously. We also want to make sure that there is a slight delay between the user's last key press and when we attempt to bundle the user's code. We don't want to bundle with every key press
+- This entire process is referred to as debouncing. Debouncing is when we want to allow some function or some code to run (as much as possible) and only after some period of time elapses we then want to do some other process
+- Timeline:
+  - User types in editor -> input state updated -> set timer to bundle in 1s
+  - User types in editor -> input state updated -> cancel prev timer & set time to bundle in 1s
+  - 1 second passes without any update to input state
+  - Run bundling logic

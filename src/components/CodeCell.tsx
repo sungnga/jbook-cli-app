@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CodeEditor from './CodeEditor';
 import Preview from './Preview';
 import bundle from '../bundler';
@@ -8,10 +8,16 @@ function CodeCell() {
 	const [code, setCode] = useState('');
 	const [input, setInput] = useState('');
 
-	async function onClick() {
-		const output = await bundle(input);
-		setCode(output);
-	}
+	useEffect(() => {
+		const timer = setTimeout(async () => {
+			const output = await bundle(input);
+			setCode(output);
+		}, 1000);
+
+		return () => {
+			clearTimeout(timer);
+		};
+	}, [input]);
 
 	return (
 		<Resizable direction='vertical'>
