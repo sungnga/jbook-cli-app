@@ -371,3 +371,8 @@ The codebase for each step can be found in the commit link
 - Let's add some styling so that the CodeEditor and the Preview window show up next to each other horizontally. We want to set the flexDirection on the items inside the Resizable component to `row`
 - We want the ResizableBox component to take up the entire width of the browser window (100% width). Unfortunately the ResizableBox component does not support percentage widths. The work-around to this problem is to set the width property to `Infinity`. This allows the width to take up the horizontal space as possible
 - Now the resizer handle spans the entire width of the screen
+
+### Expanding the CodeEditor, resizing vertically
+- We want the Preview window to have a white background to contrast the CodeEditor of dark background. This ensures that the user knows that some contents will appear there. And we want the Preview iframe to take up 100% height
+- When there is space, we want the CodeEditor to take up 100% width. And it takes up 100% height
+- We add a max and min constraints to the ResizableBox component so that the user cannot drag the resizer all the way to the bottom of the screen or minimize the CodeCell to nothing
