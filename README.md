@@ -415,4 +415,8 @@ The codebase for each step can be found in the commit link
 
 ### Extracting reusable error handling logic
 - Extract the error handling logic into its own function so that we can reuse it
-- Handling synchronous runtime error
+- Handling synchronous runtime errors
+
+### Handling async errors
+- To make sure that we capture any error that occurs at any point in time inside a browser-based environment, we can set up an event listener on our window object and watch for a specific type of event - an ErrorEvent
+- We can display the error message to the user from `event.error`
