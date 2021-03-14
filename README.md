@@ -319,3 +319,8 @@ The codebase for each step can be found in the commit link
 - Add CSS styles to the Format button
 - Place the Format button inside of the Editor and only show the button when the user mouses over the Editor. And if the user is not in the Editor, we want to hide this button
 
+### Fixing syntax highlighting
+- Although the Monaco Editor knows what JSX is, it doesn't apply syntax highlighting to it
+- We will be using two external libraries to help us out
+- Install: `npm i --save-exact monaco-jsx-highlighter@0.0.15 jscodeshift@0.11.0 @types/jscodeshift@0.7.2`
+- We will overwrite the default CSS styles of the syntax highlighter library with our own custom CSS
