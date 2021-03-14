@@ -376,3 +376,8 @@ The codebase for each step can be found in the commit link
 - We want the Preview window to have a white background to contrast the CodeEditor of dark background. This ensures that the user knows that some contents will appear there. And we want the Preview iframe to take up 100% height
 - When there is space, we want the CodeEditor to take up 100% width. And it takes up 100% height
 - We add a max and min constraints to the ResizableBox component so that the user cannot drag the resizer all the way to the bottom of the screen or minimize the CodeCell to nothing
+
+### Resizing horizontally, applying horizontal resize props
+- Inside of the CodeCell component, add another Resizable component and wrap the CodeEditor component inside of it. Pass down the direction props and set it to 'horizontal'. Now there should be a resizer handle on the editor for us to drag to resize it
+- In order for resizing horizontally to work, we need to add some logic to decide whether the direction props that's being passed down from the parent component to Resizable component is 'horizontal' or 'vertical'. Then we can provide different resizableProps object to each
+- To annotate the type of resizableProps, we can import the ResizableBoxProps type definition into our project. This way TS will have enough information to make sure that we provide all the required properties inside the two resizableProps objects - one for horizontal and one for vertical resizer
