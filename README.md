@@ -333,3 +333,12 @@ The codebase for each step can be found in the commit link
 - The Preview component receives a code as props from the App parent component
   - Define a PreviewProps interface and set it in the Preview component. This way any other components that use the Preview component must satisfy its condition
 - Import the Preview component in the App component. Render the Preview component and pass down to it the code state as code props
+
+### Extracting bundling logic
+- Next we're going to exact code related to ESBuild bundling out of the App component into a separate file
+- The asynchronous bundle function:
+  - Takes a rawCode (from the input state in App component) as an argument
+  - Checks to see if an ESBuild service has been started. If it hasn't, initialize a new service
+  - If it has, then start the bundling process by calling service.build()
+  - Returns the bundled result
+- Import the bundle function in App component. When the user clicks the Submit button, the bundle function gets called with the input state as an argument. Once we get the back the bundled output, call setCode() to store it in code state
