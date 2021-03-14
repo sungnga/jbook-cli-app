@@ -387,3 +387,8 @@ The codebase for each step can be found in the commit link
 - To do this, we want to make use of useEffect() hook to listen for changes to the browser window (addEventListener on window) and update the states that keep track of the size of window's width and height
 - We can then pass down the window width and height states to the resizableProps and this in turn, updates the ResizableBox component  
 - Since using useEffect() hook will cause the page to re-render every time the window size changes, we don't want it to re-render so frequently. For this, we want to make use of a technique known as debouncing inside of useEffect() hook. It will only update the window width and height states after a certain amount of setTimeout
+
+### Synchronizing width state
+- Currently, we've set the initial width of the editor to be 75% of the browser window width and the preview window to take up the remaining 25% width. A user can use the resizer handle to resize the widths of both. However, when they start to change or resize the browser window dimensions, the preview window jumps to its initial 25% width
+- This behavior happens because the ResizableBox component has its own internal width state. The Resizable component width prop gets updated with the new width, but the internal width state for the ResizableBox component never got updated as well. So when the browser window size changes, it causes the Resizable component to re-render and since the ResizableBox component is a child of it, ResizableBox gets re-render as well. It re-renders with the initial width state
+- We need to synchronize the width state of the ResizableBox whenever we update the width prop of the parent Resizable component
