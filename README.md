@@ -491,3 +491,10 @@ The codebase for each step can be found in the commit link
   - Export everything related to Redux into this file
   - Export the store
   - Export the reducers
+
+### Connecting React to Redux
+- Connect React to Redux - in index.tsx file of project root directory
+  - Import the Provider component from react-redux
+  - Render the Provider and wrap all of our existing components inside the Provider
+  - Import the store. Pass down the store as store props in the Provider
+  - Now all of our components that are inside this Provider will have access to the Redux store
