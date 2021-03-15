@@ -454,3 +454,7 @@ The codebase for each step can be found in the commit link
 - Restyling markdown editor resizer handle
 - Applying additional styling to markdown editor
 - Applying the dark theme to the markdown
+
+### Adding state to the editor, last touch of markdown styling
+- In the TextEditor component, we want to add in a piece of state to keep track of whatever the user types into the editor and show that inside the preview portion of the component
+- Add a last touch of styling to our markdown to make it look like a card. CSS styling coming from Bulma
