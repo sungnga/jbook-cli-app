@@ -464,3 +464,12 @@ The codebase for each step can be found in the commit link
 
 ### Creating file structures, installing Redux-related modules
 - Install: `npm i --save-exact @types/react-redux@7.1.15 axios@0.21.1 react-redux@7.2.2 redux@4.0.5 redux-thunk@2.3.0`
+
+### Defining action types and cell types, create interface definitions
+- Define action types enum - in action-types folder
+- Create actions interface definitions - in actions folder
+  - For each ActionType, we will create an interface that describes an action (with type and payload properties) that will eventually be dispatched by one of our action creators, and then processed by one of our reducers
+- Defining what a cell is - in cell.ts file
+  - Create a cell interface definition that describes what properties a cell has
+  - We can then reuse this cell interface throughout Redux
+  - Define a type CellTypes so we can change cell types in one location only
