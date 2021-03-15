@@ -442,3 +442,8 @@ The codebase for each step can be found in the commit link
 - We will make use of 2 components from this library
   - MDEditor component will display a markdown editor on the screen
   - MDEditor.Markdown component will display a preview window to the user
+
+### Toggling the markdown editor mode
+- We want our user to be able to toggle between the edit mode and the view mode
+- If the editing mode is true, the editor is opened. And as long as the user clicks inside of the editor it remains open
+- If the user starts clicking anywhere outside of the editor, the editing mode becomes false and the editor will close and the view mode comes on
