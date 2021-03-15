@@ -509,3 +509,7 @@ The codebase for each step can be found in the commit link
 - Annotate the return type of each action creator functions. Need to export then import each type action interfaces
 - Define type Direction - in actions/index.ts file
 - Add in implementations of action creators - in action-creators/index.ts file
+
+### Adding implementations for update cell logic
+- In cells reducer, we're going to add in the implementations logic for UPDATE_CELL ActionType 
+
