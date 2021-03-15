@@ -458,3 +458,9 @@ The codebase for each step can be found in the commit link
 ### Adding state to the editor, last touch of markdown styling
 - In the TextEditor component, we want to add in a piece of state to keep track of whatever the user types into the editor and show that inside the preview portion of the component
 - Add a last touch of styling to our markdown to make it look like a card. CSS styling coming from Bulma
+
+
+## DESIGN PATTERNS FOR REDUX WITH TYPESCRIPT
+
+### Creating file structures, installing Redux-related modules
+- Install: `npm i --save-exact @types/react-redux@7.1.15 axios@0.21.1 react-redux@7.2.2 redux@4.0.5 redux-thunk@2.3.0`
