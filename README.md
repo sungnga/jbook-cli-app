@@ -521,19 +521,38 @@ The codebase for each step can be found in the commit link
 - Immer docs: https://immerjs.github.io/immer/docs/update-patterns
 
 ### Updating cells with Immer
+- Handle UPDATE_CELL action
 - Import the produce function from immer
 - Wrap our entire reducer function inside of the produce() function
 - We can remove the return type of reducer function because sometimes we don't need to return anything
 - Add a `return;` to make sure that we don't run other switch cases after
+- However, we should `return state;` (return state object) to satisfy Typescript. Or else TS may give us an error of `undefined` when we run our actions
 
 ### Removing a cell
-- Add implementations for removing a cell with Immer - in cellsReducer.ts file
+- Handle DELETE_CELL action - in cellsReducer.ts file
 - The payload is the id of the cell we want to delete
 - When deleting a cell, we need to delete it from the `data` object by the cell id and remove the cell id from the `order` array
 - Basically we want to perform an object mutation and an array mutation on our state
 
 ### Swapping cell placement
-- Handle moveCell action - in cellsReducer.ts file
+- Handle MOVE_CELL action - in cellsReducer.ts file
 - The payload we get is the cell id and the direction (up or down the list)
 - We swap the cells depending on the direction given
 
+### Inserting new cells
+- Handle INSERT_CELL_BEFORE action - in cellsReducer.ts file
+- The payload is the cell id where we want to insert a new cell before it and the new cell data
+- When inserting a new cell, we need to update the `order` array with the cell id and update the `data` object with the cell object
+
+
+
+
+
+## JAVASCRIPT TRICKS
+
+#### Generating random ids or unique ids
+```js
+function randomId() {
+	return Math.random().toString(36).substr(2, 5);
+};
+```
