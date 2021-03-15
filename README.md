@@ -426,3 +426,19 @@ The codebase for each step can be found in the commit link
 - From the `bundle` function, we want to return an object that contains strings of either the bundled code or the error message
 - The `bundle` function is being called in the CodeCell component. So we can create a piece of state called err and store the error that we might get back from the function here
 - Then pass down the err state as err props to the Preview child component to be displayed to the user
+
+
+## CREATING A MARKDOWN EDITOR IN A REACT APP
+- The next feature we're going to build is our TextCell component
+  - The text cell is an area where a user can click in and write some documentation. When click out of the text cell, the user can see a nicely formatted text
+  - The TextCell component will have 2 different modes
+    - A view mode where we display whatever the user typed in there
+    - An edit mode is when a user click into the TextCell. A markdown editor is on the left hand side and a preview window for the markdown on the right hand side. We will have a toolbar for formatting text just above the markdown editor
+
+### Creating a TextEditor component using react-md-editor library
+- We will be using a library called React Markdown Editor to help us build the markdown editor for our project
+- Install: `npm i --save-exact @uiw/react-md-editor@2.1.1`
+- Docs: https://www.npmjs.com/package/@uiw/react-md-editor
+- We will make use of 2 components from this library
+  - MDEditor component will display a markdown editor on the screen
+  - MDEditor.Markdown component will display a preview window to the user
