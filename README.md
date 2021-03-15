@@ -498,3 +498,14 @@ The codebase for each step can be found in the commit link
   - Render the Provider and wrap all of our existing components inside the Provider
   - Import the store. Pass down the store as store props in the Provider
   - Now all of our components that are inside this Provider will have access to the Redux store
+
+### Adding implementations of action creators
+- All of our action creators, with the exception of fetchCells, are synchronous in nature. Whenever we call these action creators, we get back the actions instantaneously because these are not outside requests
+- Write a separate function for each action creators - in action-creators/index.ts file
+  - updateCell()
+  - deleteCell()
+  - moveCell()
+  - insertCellBefore()
+- Annotate the return type of each action creator functions. Need to export then import each type action interfaces
+- Define type Direction - in actions/index.ts file
+- Add in implementations of action creators - in action-creators/index.ts file
