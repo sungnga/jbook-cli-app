@@ -473,3 +473,12 @@ The codebase for each step can be found in the commit link
   - Create a cell interface definition that describes what properties a cell has
   - We can then reuse this cell interface throughout Redux
   - Define a type CellTypes so we can change cell types in one location only
+
+### Setting up cells reducer, adding simple switch cases
+- Define a cells reducer - in reducers/cellsReducer.ts file
+- A cells reducer will manage the following properties:
+  - data: listing of all cells. Is an object where the key is the cell id and value is the cell object
+  - loading: true/false whether we are fetching data. Is a boolean type
+  - error: errors related to saving cells. Is either a string or null
+  - order: order of cells. Is an array of strings
+- Add a switch statement to handle different action.type from incoming actions of this reducer. For now, we're just going to return state for each case, but will come back to put in additional implementation for each
