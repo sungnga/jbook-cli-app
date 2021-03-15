@@ -525,3 +525,10 @@ The codebase for each step can be found in the commit link
 - Wrap our entire reducer function inside of the produce() function
 - We can remove the return type of reducer function because sometimes we don't need to return anything
 - Add a `return;` to make sure that we don't run other switch cases after
+
+### Removing a cell
+- Add implementations for removing a cell with Immer - in cellsReducer.ts file
+- The payload is the id of the cell we want to delete
+- When deleting a cell, we need to delete it from the `data` object by the cell id and remove the cell id from the `order` array
+- Basically we want to perform an object mutation and an array mutation on our state
+
