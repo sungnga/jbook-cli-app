@@ -532,3 +532,8 @@ The codebase for each step can be found in the commit link
 - When deleting a cell, we need to delete it from the `data` object by the cell id and remove the cell id from the `order` array
 - Basically we want to perform an object mutation and an array mutation on our state
 
+### Swapping cell placement
+- Handle moveCell action - in cellsReducer.ts file
+- The payload we get is the cell id and the direction (up or down the list)
+- We swap the cells depending on the direction given
+
