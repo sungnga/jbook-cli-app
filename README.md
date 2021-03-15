@@ -513,3 +513,15 @@ The codebase for each step can be found in the commit link
 ### Adding implementations for update cell logic
 - In cells reducer, we're going to add in the implementations logic for UPDATE_CELL ActionType 
 
+
+## SIMPLIFY STATE UPDATES WITH IMMER LIBRARY
+- Updating the states can get very complicated. For that, we're going to use a package called Immer to help us update our states
+- Immer allows us to make direct updates to our state object without having to write complicated spread statements like we did in the previous step
+- Install: `npm i immer`
+- Immer docs: https://immerjs.github.io/immer/docs/update-patterns
+
+### Updating cells with Immer
+- Import the produce function from immer
+- Wrap our entire reducer function inside of the produce() function
+- We can remove the return type of reducer function because sometimes we don't need to return anything
+- Add a `return;` to make sure that we don't run other switch cases after
