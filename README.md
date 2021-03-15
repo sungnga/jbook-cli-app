@@ -420,3 +420,9 @@ The codebase for each step can be found in the commit link
 ### Handling async errors
 - To make sure that we capture any error that occurs at any point in time inside a browser-based environment, we can set up an event listener on our window object and watch for a specific type of event - an ErrorEvent
 - We can display the error message to the user from `event.error`
+
+### Capturing bundling errors, printing the captured error
+- The bundling error may occur when we run service.build(). So we can catch the error in a try/catch block
+- From the `bundle` function, we want to return an object that contains strings of either the bundled code or the error message
+- The `bundle` function is being called in the CodeCell component. So we can create a piece of state called err and store the error that we might get back from the function here
+- Then pass down the err state as err props to the Preview child component to be displayed to the user
