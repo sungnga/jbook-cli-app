@@ -571,6 +571,36 @@ The codebase for each step can be found in the commit link
   ```
 
 
+## BINDING REACT WITH REDUX
+
+### Creating CellList and CellListItem components
+- The CellList component renders a list of cells to the user
+  - This component gets the list of cells from the store and display them on the screen
+  - It also needs the order array for it to figure out the order to display the cells in
+- The CellListItem component renders each individual cell
+  - Its job is to figure out what kind of cell to show: code cell or text cell
+  - It also has 3 buttons: delete the cell, move the cell up, and move the cell down 
+
+### Creating a typed selector: useTypedSelector hook
+- Create a useTypedSelector hook. This hook will understand the type of data that is stored inside of our store
+- Whenever we want to access any state inside a component, we're going to use this useTypedSelector hook
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## JAVASCRIPT TRICKS
