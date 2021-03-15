@@ -544,6 +544,31 @@ The codebase for each step can be found in the commit link
 - The payload is the cell id where we want to insert a new cell before it and the new cell data
 - When inserting a new cell, we need to update the `order` array with the cell id and update the `data` object with the cell object
 
+### Manual testing of a Redux store
+- We can call store.dispatch() to dispatch an action. Provide the action type and the payload
+- To get a state in the store, just call store.getState()
+- To test out our Redux store, in store.ts file:
+  ```js
+  import { ActionType } from './action-types';
+
+  store.dispatch({
+    type: ActionType.INSERT_CELL_BEFORE,
+    payload: {
+      id: null,
+      type: 'code'
+    }
+  });
+
+  store.dispatch({
+    type: ActionType.INSERT_CELL_BEFORE,
+    payload: {
+      id: null,
+      type: 'text'
+    }
+  });
+
+  console.log(store.getState());
+  ```
 
 
 
