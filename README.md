@@ -447,3 +447,10 @@ The codebase for each step can be found in the commit link
 - We want our user to be able to toggle between the edit mode and the view mode
 - If the editing mode is true, the editor is opened. And as long as the user clicks inside of the editor it remains open
 - If the user starts clicking anywhere outside of the editor, the editing mode becomes false and the editor will close and the view mode comes on
+
+### Fixing CSS conflicts, applying styles to markdown
+- Solving class name conflicts between react-md-editor and Bulma CSS
+- Fixing the divider height
+- Restyling markdown editor resizer handle
+- Applying additional styling to markdown editor
+- Applying the dark theme to the markdown
