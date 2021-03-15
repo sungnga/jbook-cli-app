@@ -482,3 +482,12 @@ The codebase for each step can be found in the commit link
   - error: errors related to saving cells. Is either a string or null
   - order: order of cells. Is an array of strings
 - Add a switch statement to handle different action.type from incoming actions of this reducer. For now, we're just going to return state for each case, but will come back to put in additional implementation for each
+
+### Creating and exporting the store
+- Create a reducers using combineReducers() - in reducers/index.ts file
+  - Define the reducers type
+- Create a store using createStore() - in store.ts file
+- Create an entry point index.ts file at the root of state directory
+  - Export everything related to Redux into this file
+  - Export the store
+  - Export the reducers
