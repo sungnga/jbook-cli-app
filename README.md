@@ -691,7 +691,14 @@ The codebase for each step can be found in the commit link
   - dispatches the BUNDLE_START action with a payload of cellId
   - starts the bundling process: asynchronously calling the bundle() function with the given input. Stores the bundle result in result variable
   - then dispatches the BUNDLE_COMPLETE action with a payload of cellId and bundle object which has the result code and err properties
-- Because we are dispatching two actions from one action creator and because we're having asynchronous code (bundling process is asynchronous), we're going to make use of Redux thunk. 
+- Because we are dispatching two actions from one action creator and because we're having asynchronous code (bundling process is asynchronous), we're going to make use of Redux thunk
+
+### Wiring up to React
+- Now we can wire up the bundles state in Redux store to our CodeCell component
+- In the CodeCell component:
+  - We no longer need the code and err states anymore. Now the output code and the err value is going to be stored in Redux store. Also, we are no longer doing the bundling inside of this component. Instead, we call the createBundle() function to do the bundling
+  - Call useTypedSelector() hook to access the Redux store and we specifically want to access the bundles state and look up for a particular bundle based on the given cell.id. Remember that there could be many bundles being process and each bundle has a cellId attached to it
+  - For rendering the Preview component, it now gets the code props from `bundle.code` and the err props from `bundle.err`. The bundle.code contains the bundled code to be executed by the Preview component and display on the preview window. If there's an error in `bundle.err`, it will display the error message instead
 
 
 
