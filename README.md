@@ -653,6 +653,9 @@ The codebase for each step can be found in the commit link
 - When there is no cell left in the CellList we want to make sure that the AddCell is always visible to the user
 - Add a forceVisible props to AddCell Component and make the props optional by adding a question mark next to it in the interface definition
 
+### Adding vertical spacing between AddCell bar, add transition
+- Right now our AddCell component is squished right next to the vertical resizer handle and we're not able to resize the CodeCell vertically. We can apply some vertical margin between the AddCell
+- Also, apply additional transition properties to the AddCell component so there will be a little longer delay before the user sees the AddCell when they hover over the area
 
 
 
