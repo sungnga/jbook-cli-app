@@ -684,7 +684,14 @@ The codebase for each step can be found in the commit link
   - err: string
 - Wire up the bundlesReducer function to the combineReducers() call
 
-
+### Adding the createBundle action creator
+- The createBundle action creator...
+  - takes in some amount of user's code and a cellId: input and cellId
+  - returns a function. This function...
+  - dispatches the BUNDLE_START action with a payload of cellId
+  - starts the bundling process: asynchronously calling the bundle() function with the given input. Stores the bundle result in result variable
+  - then dispatches the BUNDLE_COMPLETE action with a payload of cellId and bundle object which has the result code and err properties
+- Because we are dispatching two actions from one action creator and because we're having asynchronous code (bundling process is asynchronous), we're going to make use of Redux thunk. 
 
 
 
