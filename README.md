@@ -37,8 +37,8 @@ The codebase for each step can be found in the commit link
 
 ### ESBuild bundling using unpkgPathPlugin
 - When ESBuild is going through the process of bundling our code and when it sees lines of code like 'import/export/export.module', it tries to find the module in the file system
-- We want to intercept this step and provide it the path to the module ourselves. We intercept this process with help of the unpkg-path-plugin
-- The unpkg.com site will automatically return the path (usually found in the index.js file of a module) of a given NPM module
+- We want to intercept this step and provide it the path to the module ourselves. We intercept this process with the help of unpkg-path-plugin
+- The unpkg.com site will automatically return the path of a given NPM module. This path is usually found in the index.js file of the module
 - In the unpkg-path-plugin.ts file, we overwrite the ESBuild's .onResolve() and .onLoad() functions
 - For now we're just going hard-code in the import module just to test that the ESBuild bundling works
 
@@ -585,8 +585,15 @@ The codebase for each step can be found in the commit link
 - Create a useTypedSelector hook. This hook will understand the type of data that is stored inside of our store
 - Whenever we want to access any state inside a component, we're going to use this useTypedSelector hook
 
-
-
+### Selecting an ordered list, rendering cell types
+- In CellList component, call useTypedSelector() hook to access the state in Redux store, and we only want to get the cells state. Then destructure data and order properties from cells state
+- Get the list of cells in data object by mapping over the order array. This will return an array of cells in the order that the cell id is stored in the order array
+- Then iterate over the cells array and display each cell in a `<CellListItem />` component. Pass down the cell object as cell props to the CellListItem component
+- In the CellListItem component:
+  - Receive the cell props from the parent component
+  - Create a CellListItemProps interface definition that contains the cell props set to Cell type. Then assign this interface to CellListItem component
+  - If the cell type is equal to 'code', render the `<CodeCell />` component
+  - Else render the `<TextEditor />` component
 
 
 

@@ -28,7 +28,7 @@ const reducer = produce((state: CellsState = initialState, action: Action) => {
 			return state;
 		case ActionType.DELETE_CELL:
 			delete state.data[action.payload];
-			state.order = state.order.filter((i) => id !== action.payload);
+			state.order = state.order.filter((id) => id !== action.payload);
 			return state;
 		case ActionType.MOVE_CELL:
 			const { direction } = action.payload;
@@ -37,7 +37,7 @@ const reducer = produce((state: CellsState = initialState, action: Action) => {
 			const targetIndex = direction === 'up' ? index - 1 : index + 1;
 
 			// Out of bound conditionals
-			if (targetIndex < 0 || targetIndex > state.order.length - 1) return;
+			if (targetIndex < 0 || targetIndex > state.order.length - 1) return state;
 
 			// Swapping cells
 			state.order[index] = state.order[targetIndex];
@@ -64,7 +64,7 @@ const reducer = produce((state: CellsState = initialState, action: Action) => {
 			if (foundIndex < 0) {
 				state.order.push(cell.id);
 			} else {
-				state.order.splice(foundIndex, 0, cell.id);
+				state.order.splice(foundIndex + 1, 0, cell.id);
 			}
 
 			return state;
