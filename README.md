@@ -624,7 +624,12 @@ The codebase for each step can be found in the commit link
 - Add an onClick event handler to each button elements. When a user clicks on the Up or Down button, call the moveCell() action and pass in the id and the direction as arguments
 - When they click on the Delete button, call the delete() action and pass in the id as an argument
 
-
+### Adding icon buttons, applying custom CSS to ActionBar component
+- We're going to make use of the fontawesome library to display our icons
+- Install: `npm i @fortawesome/fontawesome-free`
+- We want to show the 3 action buttons on the right hand side of each cell
+- The ActionBar will be dim and when a user hovers over it does it get bright
+- For the CodeCell, we want to add a bar right above the CodeCell and the ActionBar sits inside of it on the right side
 
 
 
