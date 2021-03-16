@@ -595,8 +595,8 @@ The codebase for each step can be found in the commit link
   - If the cell type is equal to 'code', render the `<CodeCell />` component
   - Else render the `<TextEditor />` component
 
-
-
+### Creating an action creator helper: useActions hook
+- Whenever we call useActions() hook inside a component, we will have access to all the actions available and then we can destructure just the ones we want to use
 
 
 
