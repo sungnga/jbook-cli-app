@@ -644,8 +644,10 @@ The codebase for each step can be found in the commit link
 - And then at the bottom of the cell list we want to render the AddCell component once more, but the nextCellId is set to `null` because we don't have a nextCellId as this is the end of the cell list
 - We need to update our cell id type to be able to accept `null` as well
 
-
-
+### Styling the AddCell component
+- We want the two buttons to be in the middle of the screen and a line is drawn through, but is behind, the two buttons
+- Style the buttons to have rounded corners and include a plus icon on the left side
+- We don't want to show the AddCell buttons initially until a user hovers over it
 
 
 
