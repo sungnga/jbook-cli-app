@@ -676,6 +676,16 @@ The codebase for each step can be found in the commit link
 - When our BundleCell action creator starts, it's going to dispatch the BundleStartAction. It will take a cellId as an argument. At this stage we may show a loading icon while the use's code is bundling
 - Once the code has been bundled, the BundleCell action creator will dispatch the BundleCompleteAction. This action takes in a payload of the cellId and the result of the bundling process which contains the code and err properties
 
+### Adding the bundlesReducer
+- The bundlesReducer function handles the implementations of both BUNDLE_START and BUNDLE_COMPLETE action types. It updates the bundles state in the store according to the action type being called
+- The bundlesReducer manages the bundles state in Redux store. The bundles state properties are:
+  - loading: boolean
+  - code: string
+  - err: string
+- Wire up the bundlesReducer function to the combineReducers() call
+
+
+
 
 
 
