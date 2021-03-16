@@ -598,6 +598,14 @@ The codebase for each step can be found in the commit link
 ### Creating an action creator helper: useActions hook
 - Whenever we call useActions() hook inside a component, we will have access to all the actions available and then we can destructure just the ones we want to use
 
+### Refactoring: extracting state from CodeCell component
+- Currently our CodeCell component has code, err, and input states. We make use of these states for testing purposes while we were building the CodeCell (the CodeEditor and Preview window)
+- Now we no longer need to use these states. The CodeCell component is rendered inside the CellListItem parent component. The CellListItem component will provide the cell object (coming from the store) as cell props, and the CodeCell component can dispatch an action to update the cell state in Redux store
+- In CodeCell component:
+  - Receive the cell props from the CellListItem parent component
+  - Define a CodeCellProps interface for the component
+  - Call useActions() hook and destructure the `updateCell` action
+  - We won't make use of the input state anymore. We replace `input` with `cell.content`. Replace `setInput()` with `updateCell()`
 
 
 
