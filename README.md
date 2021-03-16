@@ -616,8 +616,13 @@ The codebase for each step can be found in the commit link
   - Replace `value` state with `cell.content`
   - Replace `setValue()` with `updateCell()`
 
-
-
+### Creating ActionBar component
+- This ActionBar component is rendered in the CellListItem parent component. It should receive a cell id as id props
+- Define the props interface definitions
+- Import the moveCell and deleteCell actions using useActions() hook
+- This component renders the Up, Down, and Delete buttons
+- Add an onClick event handler to each button elements. When a user clicks on the Up or Down button, call the moveCell() action and pass in the id and the direction as arguments
+- When they click on the Delete button, call the delete() action and pass in the id as an argument
 
 
 
