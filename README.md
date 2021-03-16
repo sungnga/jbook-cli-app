@@ -700,6 +700,12 @@ The codebase for each step can be found in the commit link
   - Call useTypedSelector() hook to access the Redux store and we specifically want to access the bundles state and look up for a particular bundle based on the given cell.id. Remember that there could be many bundles being process and each bundle has a cellId attached to it
   - For rendering the Preview component, it now gets the code props from `bundle.code` and the err props from `bundle.err`. The bundle.code contains the bundled code to be executed by the Preview component and display on the preview window. If there's an error in `bundle.err`, it will display the error message instead
 
+### Solving infinite calls on createBundle with useMemo hook
+- Since we're calling the createBundle action creator inside the useEffect hook, the CodeCell component keeps re-rendering itself and this causes the preview window to keep reloading
+- To solve this issue we make use of the useMemo hook from React
+
+
+
 
 
 

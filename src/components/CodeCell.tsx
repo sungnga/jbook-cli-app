@@ -11,6 +11,7 @@ interface CodeCellProps {
 }
 
 const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
+  // Because of useMemo hook, createBundle is a stabled function
 	const { updateCell, createBundle } = useActions();
 	const bundle = useTypedSelector((state) => state.bundles[cell.id]);
 
@@ -22,7 +23,7 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
 		return () => {
 			clearTimeout(timer);
 		};
-	}, [cell.content, cell.id]);
+	}, [cell.content, cell.id, createBundle]);
 
 	return (
 		<Resizable direction='vertical'>
