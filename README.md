@@ -663,6 +663,10 @@ The codebase for each step can be found in the commit link
 - If there is cell in CellList, add the new cell AFTER the foundIndex cell, instead of before the foundIndex cell
 - Change the name of action type from `INSERT_CELL_BEFORE` to `INSERT_CELL_AFTER`
 
+### Fixing AddCell behavior: refactoring the React side
+- The behavior we're trying to fix: when we click on the AddCell at the bottom of CellList, a new cell is inserted and the AddCell component that we clicked on get shifted down the CellList in the DOM. At the same time, this last AddCell component is visible for a moment and then just disappears
+- So in general, when inserting an item into a list, it's best practice to insert it after instead of before. This way it doesn't generate this weird behavior
+
 
 
 
