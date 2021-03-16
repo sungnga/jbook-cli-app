@@ -639,7 +639,10 @@ The codebase for each step can be found in the commit link
 - When one of these buttons is clicked, the insertCellBefore() action is dispatched and it takes the nextCellId and the type of 'text' or 'code' as arguments
 - This will insert either a code cell or a text cell to the cells array depending on the cell type given
 
-
+### Displaying AddCell component in CellList component
+- Inside of the CellList component is where we render each cell in a CellListItem component. And for each cell being rendered, we want to display our AddCell component just above it
+- And then at the bottom of the cell list we want to render the AddCell component once more, but the nextCellId is set to `null` because we don't have a nextCellId as this is the end of the cell list
+- We need to update our cell id type to be able to accept `null` as well
 
 
 
