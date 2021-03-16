@@ -668,6 +668,13 @@ The codebase for each step can be found in the commit link
 - So in general, when inserting an item into a list, it's best practice to insert it after instead of before. This way it doesn't generate this weird behavior
 
 
+## CONNECTING BUNDLES IN REDUX
+
+### Defining bundling action types and interfaces
+- The two action types for our bundling process are: BUNDLE_START and BUNDLE_COMPLETE
+- Define interfaces for both action types
+- When our BundleCell action creator starts, it's going to dispatch the BundleStartAction. It will take a cellId as an argument. At this stage we may show a loading icon while the use's code is bundling
+- Once the code has been bundled, the BundleCell action creator will dispatch the BundleCompleteAction. This action takes in a payload of the cellId and the result of the bundling process which contains the code and err properties
 
 
 
