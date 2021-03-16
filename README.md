@@ -607,7 +607,14 @@ The codebase for each step can be found in the commit link
   - Call useActions() hook and destructure the `updateCell` action
   - We won't make use of the input state anymore. We replace `input` with `cell.content`. Replace `setInput()` with `updateCell()`
 
-
+### Refactoring: extracting state from TextEditor component
+- Currently the TextEditor component is using the `value` state to keep track of the value from the MDEditor and MDEditor.Markdown component
+- In TextEditor component:
+  - Receive the cell props from the CellListItem parent component
+  - Define a TextEditorProps interface for the component
+  - Call useActions() hook and destructure the `updateCell` action
+  - Replace `value` state with `cell.content`
+  - Replace `setValue()` with `updateCell()`
 
 
 
