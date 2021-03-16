@@ -27,3 +27,7 @@
 .add-cell .add-buttons button {
 	margin: 0 40px;
 }
+
+.add-cell.force-visible {
+	opacity: 1;
+}

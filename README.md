@@ -649,9 +649,9 @@ The codebase for each step can be found in the commit link
 - Style the buttons to have rounded corners and include a plus icon on the left side
 - We don't want to show the AddCell buttons initially until a user hovers over it
 
-
-
-
+### Forcing AddCell visibility on CellList
+- When there is no cell left in the CellList we want to make sure that the AddCell is always visible to the user
+- Add a forceVisible props to AddCell Component and make the props optional by adding a question mark next to it in the interface definition
 
 
 
