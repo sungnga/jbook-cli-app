@@ -631,6 +631,25 @@ The codebase for each step can be found in the commit link
 - The ActionBar will be dim and when a user hovers over it does it get bright
 - For the CodeCell, we want to add a bar right above the CodeCell and the ActionBar sits inside of it on the right side
 
+### Creating an AddCell component
+- The AddCell component adds a new cell to the cell list. It adds either a code cell or a text cell
+- This component receives nextCellId as props
+- Import the insertCellBefore action using useActions() hook
+- The AddCell component renders two buttons - one is 'Code' cell and the other is 'Text' cell
+- When one of these buttons is clicked, the insertCellBefore() action is dispatched and it takes the nextCellId and the type of 'text' or 'code' as arguments
+- This will insert either a code cell or a text cell to the cells array depending on the cell type given
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
