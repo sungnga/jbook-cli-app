@@ -657,6 +657,13 @@ The codebase for each step can be found in the commit link
 - Right now our AddCell component is squished right next to the vertical resizer handle and we're not able to resize the CodeCell vertically. We can apply some vertical margin between the AddCell
 - Also, apply additional transition properties to the AddCell component so there will be a little longer delay before the user sees the AddCell when they hover over the area
 
+### Fixing AddCell behavior: refactoring the Redux side
+- We want to modify the way a new cell gets added to the end of CellList
+- If there is no cell in CellList, add the new cell at the beginning (unshift method) of cells array, instead of at the end (push method) of the array
+- If there is cell in CellList, add the new cell AFTER the foundIndex cell, instead of before the foundIndex cell
+- Change the name of action type from `INSERT_CELL_BEFORE` to `INSERT_CELL_AFTER`
+
+
 
 
 
