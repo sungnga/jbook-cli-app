@@ -823,6 +823,9 @@ The codebase for each step can be found in the commit link
 - We want to extract the cumulative code logic into a separate hook and we can call it in CodeCell component
 - The useCumulativeCode hook is going to receive a cellId as a parameter. We need to know the id of the cell we're trying to find the cumulative code for 
 
+### Adding CSS to CellList, fixing CodeCell resize odd behavior
+- Let's add some margin to the sides of our CellList component. This way the cell list doesn't bleed to the edge of the browser window
+- Fixing CodeCell vertical resize odd behavior of abruptly snapping shut and open 
 
 
 
