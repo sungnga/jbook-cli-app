@@ -706,8 +706,16 @@ The codebase for each step can be found in the commit link
 
 ### Getting an initial bundle
 - When the CodeCell component loads for the very first time, the bundles state in Redux store is empty and loading is set to true
-- So when CodeCell component first loads and there's no bundle, we want to call createBundle() right away. This will cause the preview window to render immediately instead of one second later
+- So when CodeCell component first loads and there's no bundle, we want to call createBundle() to create a bundle right away. This will cause the preview window to render immediately instead of one second later
 - Only when a user engages with our code editor will we wait for one second before calling createBundle() to start the bundling process. Since createBundle() is called inside useEffect hook, this function runs when one of the items in dependencies array changes i.e., when cell.content changes
+
+### Showing a loading progress bar icon
+- We want to show a progress bar icon over the preview window if no content in bundle state or if bundle.loading is true
+
+
+
+
+
 
 
 
