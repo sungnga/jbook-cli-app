@@ -795,8 +795,14 @@ The codebase for each step can be found in the commit link
   - `show(() => <div>{value}</div>)`
 - We can now show simple values like strings, numbers, arrays and objects
 
-
-
+### Showing a JSX element, avoiding import naming collisions
+- Let's update our show function to be able to recognize a React JSX element
+- In our show function, we're going to automatically import the React and ReactDOM modules into every single bundle we create. The reason why we want to do this is if a user decides to show some JSX elements, they would get a runtime error unless they import a React module themselves. We can't rely on our users to figure this out for the error to go away
+- However, if a user decides to write out the import statements of React and ReactDOM in the code editor, we will run into import naming collisions because we have hard-coded the same modules into our user's code
+- To avoid import name collision conflict, we're going to rename our React and ReactDOM import statements and we're going to configure ESBuild to reference these instead. So whenever it sees JSX elements, it will use the renamed React and ReactDOM
+  - Renaming from `import React from 'react';` to `import _React from 'react';`
+  - Renaming from `import ReactDOM from 'react-dom';` to `import _ReactDOM from 'react-dom';`
+- Note: ESBuild will be able to recognize that React is imported twice, but it's going to include the React source code one time to the bundling process
 
 
 
