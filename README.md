@@ -804,6 +804,20 @@ The codebase for each step can be found in the commit link
   - Renaming from `import ReactDOM from 'react-dom';` to `import _ReactDOM from 'react-dom';`
 - Note: ESBuild will be able to recognize that React is imported twice, but it's going to include the React source code one time to the bundling process
 
+### Showing a React component, implementing a show function no-op
+- To show a React component using our `show` function, a user writes it in the same way as they usually write out a simple JSX element. And they can show this component as many times as they want, or even in a different code cell
+  - Example:
+    ```js
+    import React from 'react';
+    import ReactDOM from 'react-dom';
+
+    function App() {
+      return <h1>component</h1>;
+    }
+
+    show(<App />);
+    ```
+- However, if a user calls show() inside a previous code cell, we do not want the results of that show() to be reflected inside of subsequence code cells
 
 
 
