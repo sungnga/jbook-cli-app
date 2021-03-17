@@ -819,6 +819,12 @@ The codebase for each step can be found in the commit link
     ```
 - However, if a user calls show() inside a previous code cell, we do not want the results of that show() to be reflected inside of subsequence code cells
 
+### Refactor: extracting cumulative code selector into a hook
+- We want to extract the cumulative code logic into a separate hook and we can call it in CodeCell component
+- The useCumulativeCode hook is going to receive a cellId as a parameter. We need to know the id of the cell we're trying to find the cumulative code for 
+
+
+
 
 
 
