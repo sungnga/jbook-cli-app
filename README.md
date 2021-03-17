@@ -784,6 +784,22 @@ The codebase for each step can be found in the commit link
 	}, [cumulativeCode.join('\n'), cell.id, createBundle]);
   ```
 
+### Adding a show function
+- We're going to add in another feature to our application. We going to build a `show` function that we will be able to call and pass in some value, and it will display the content in the Preview window
+- There are a variety of values that we can pass in to the `show` function
+  - `show(1);`
+  - `show('kdjsf');`
+  - `show({});`
+  - `show([1,33,56,799]);`
+  - `show(<div>element</div>);`
+  - `show(() => <div>{value}</div>)`
+- We can now show simple values like strings, numbers, arrays and objects
+
+
+
+
+
+
 
 
 
