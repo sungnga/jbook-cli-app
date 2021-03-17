@@ -712,6 +712,10 @@ The codebase for each step can be found in the commit link
 ### Showing a loading progress bar icon
 - We want to show a progress bar icon over the preview window if no content in bundle state or if bundle.loading is true
 
+### Fixing Preview window background
+- In our CodeCell component, whenever we rebundle our code, the Preview window flickers for a moment with a dark background before it renders the white background. This occurs because of the way we apply the css animation rules to the progress bar to delay for .25s. The dark background displays during this .25s delay
+- To fix this, we wrap the preview window inside a wrapper div tag and give it a white background color. This way the background will always be white even during the rebunding process
+
 
 
 
