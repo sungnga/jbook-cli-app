@@ -717,7 +717,48 @@ The codebase for each step can be found in the commit link
 - To fix this, we wrap the preview window inside a wrapper div tag and give it a white background color. This way the background will always be white even during the rebunding process
 
 
+## ADDING A 'CUMULATIVE CODE EXECUTION' FEATURE
+- The next feature we want to build is to allow all code cells to reference any variable, any function, any object that is declared in a prior code cell
 
+### Calculating cumulative code in CodeCell component
+- Currently, the way our CodeCell component works is it takes the user's code from each different code cells, feeds it into the bundler and we get back a bundle for each particular cell (correspond to its cellId)
+  - Also note that the bundling process itself happens on the Redux side by calling the createBundle action creator and provide it the cell.id and cell.content
+  - The CodeCell component gets back a bundle by calling useTypedSelector hook and look at the bundles state inside of the Redux store
+- Now, to implement our new feature, we want to add an additional step before handing off the code to the bundler - to createBundle action creator
+  - This step is accumulating codes from previous code cells and join it into one code file and then pass it to the bundler
+  - An example of how to calculate the cumulative code is this:
+    - CodeCell#1 will have cumulative code from CodeCell#1 -> Pass cumulative code to bundler -> Bundle for #1 -> Pass bundle to CodeCell component -> Pass bundle to CodeCell component
+    - CodeCell#2 will have cumulative code from CodeCell#1 join with CodeCell#2 -> Pass cumulative code to bundler -> Bundle for #1, #2 -> Pass bundle to CodeCell component
+    - CodeCell#3 will have cumulative code from CodeCell#1 join with CodeCell#2 join with CodeCell#3 -> Pass cumulative code to bundler -> Bundle for #1, #2, #3 -> Pass bundle to CodeCell component
+  - Calculating a new value based upon existing data in state is referred to **derived state**. Usually a good place for a derived state is inside a selector and we place these selectors inside of a component. In our case, inside of the CodeCell component, we will use a new useTypedSelector hook to generate the cumulative code values from current cell and all the previous cells
+  ```ts
+  import { useTypedSelector } from '../hooks/useTypedSelector';
+
+  const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
+    const bundle = useTypedSelector((state) => state.bundles[cell.id]);
+    // cumulativeCode has the code from current cell plus all previous cells
+    // This selector receives a state
+    const cumulativeCode = useTypedSelector((state) => {
+      // Reach into cells state and get data and order properties from it
+      const { data, order } = state.cells;
+      const orderedCells = order.map((id) => data[id]);
+
+      const cumulativeCode = [];
+      for (let c of orderedCells) {
+        if (c.type === 'code') {
+          cumulativeCode.push(c.content);
+        }
+        // If c.id is the current cell.id, we break
+        if (c.id === cell.id) {
+          break;
+        }
+      }
+      return cumulativeCode;
+    });
+
+    console.log(cumulativeCode);
+  };
+  ```
 
 
 

@@ -15,6 +15,27 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
 	// Because of useMemo hook, createBundle is a stabled function
 	const { updateCell, createBundle } = useActions();
 	const bundle = useTypedSelector((state) => state.bundles[cell.id]);
+	// cumulativeCode has the code from current cell plus all previous cells
+	// This selector receives a state
+	const cumulativeCode = useTypedSelector((state) => {
+		// Reach into cells state and get data and order properties from it
+		const { data, order } = state.cells;
+		const orderedCells = order.map((id) => data[id]);
+
+		const cumulativeCode = [];
+		for (let c of orderedCells) {
+			if (c.type === 'code') {
+				cumulativeCode.push(c.content);
+			}
+			// If c.id is the current cell.id, we break
+			if (c.id === cell.id) {
+				break;
+			}
+		}
+		return cumulativeCode;
+	});
+
+	console.log(cumulativeCode);
 
 	useEffect(() => {
 		if (!bundle) {
@@ -24,7 +45,7 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
 
 		const timer = setTimeout(async () => {
 			createBundle(cell.id, cell.content);
-		}, 1000);
+		}, 2000);
 
 		return () => {
 			clearTimeout(timer);
