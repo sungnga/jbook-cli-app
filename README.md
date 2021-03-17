@@ -743,6 +743,7 @@ The codebase for each step can be found in the commit link
       const { data, order } = state.cells;
       const orderedCells = order.map((id) => data[id]);
 
+      // cumulativeCode is an array of strings
       const cumulativeCode = [];
       for (let c of orderedCells) {
         if (c.type === 'code') {
@@ -760,7 +761,28 @@ The codebase for each step can be found in the commit link
   };
   ```
 
+### Executing the cumulative code
+- Instead of passing the cell.content to createBundle() action creator to bundle, we pass to it the joined cumulativeCode, a single string of cumulativeCode
+- We've now got cumulative code execution throughout all of different code cells. If we make a change to one code cell, all the dependent code cells underneath it will automatically be updated and re-execute
+- Now we're able to share variables, functions, etc. between code cells
+  ```ts
+	useEffect(() => {
+		if (!bundle) {
+			// joined by a newline character
+			createBundle(cell.id, cumulativeCode.join('\n'));
+			return;
+		}
 
+		const timer = setTimeout(async () => {
+			createBundle(cell.id, cumulativeCode.join('\n'));
+		}, 2000);
+
+		return () => {
+			clearTimeout(timer);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [cumulativeCode.join('\n'), cell.id, createBundle]);
+  ```
 
 
 
