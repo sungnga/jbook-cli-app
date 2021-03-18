@@ -931,9 +931,9 @@ The codebase for each step can be found in the commit link
     - `npx typescript --init` (if don't have TS installed globally)
     - Or run: `tsc --init` (if have TS installed globally)
     - Configure TS to take the transpiled typescript files and place the result inside of a `dist` directory
-    - In tsconfig.json file, 
-      - Uncomment the "outDir" line and set it to: `"outDir": "./dist",`
-      - Uncomment the "declaration" line: `"declaration": true,`
+  - In tsconfig.json file
+    - Uncomment the "outDir" line and set it to: `"outDir": "./dist",`
+    - Uncomment the "declaration" line: `"declaration": true,`
   - In package.json file
     - Add in a script that's going to run the typescript compiler
     - Update the "main" key and point it to the compiled index.js file inside of dist directory. This is setting the entry point where other people can find the code of this module
@@ -948,6 +948,27 @@ The codebase for each step can be found in the commit link
 - To test out the typescript support for local-api, cd into local-api directory and run:
   - `npm start`
 - Now inside of the `local-api` module, we see a `dist` folder. In it has the index.js file and the index.d.ts type definition file. The index.js file contains the transpiled code of this package in Javascript and this is what we are exporting
+
+### Adding typescript support to the cli module
+- In local-api project folder:
+  - Rename the current index.js file to index.ts. And then change to import from local-api instead of require local-api
+  - Create an src folder and move the index.ts file into here
+  - Generate a tsconfig.json file in cli module
+    - Run: `tsc --init`
+  - Install Typescript as a development dependency
+    - Run: `lerna add typescript --dev --scope=cli`
+  - Configure typescript in tsconfig.json file
+    - Uncomment "outDir" line and set it to "./dist"
+    - We don't need any type declaration files generated because we're not going to import this cli into any other modules. So don't need to configure/uncomment "declaration" line
+  - In package.json file
+    - We don't need to declare the "main" key, because we don't intend to import this cli into any other modules. Delete the "main" key
+    - Add a start script that's going to run the typescript compiler
+      - `"start": "tsc --watch --preserveWatchOutput",`
+- To test out the typescript support for cli, cd into cli directory and run: `npm start`
+- We should see a `dist` folder inside the cli project folder and it has a compiled index.js file of the cli package
+- To test out our cli module in Javascript form, cd into dist directory and run: `node index.js`. It should say server is listening
+
+
 
 
 
