@@ -872,7 +872,7 @@ The codebase for each step can be found in the commit link
 - Other tools out there similar to Lerna: Yarn Workspaces, NPM Workspaces, Bolt, Luigi
 - We will be using Lerna v3.22.1
 - Install: `npm i -g -save-exact lerna@3.22.1`
-- Lerna docs: npm i -g -save-exact lerna@3.22.1
+- Lerna docs: https://github.com/lerna/lerna
 
 ### Lerna setup
 - We need to restructure our react app project folder
