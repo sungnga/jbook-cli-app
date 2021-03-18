@@ -893,6 +893,38 @@ The codebase for each step can be found in the commit link
 - cd into `jbook-cli-app/packages/cli` folder and run: `npm init -y`. This will create a package.json file
 - cd into `jbook-cli-app/packages/local-api` folder and run: `npm init -y`. This will create a package.json file
 
+### Adding modules with Lerna
+- When using lerna, we do not manually `npm install` modules. Instead, we use the command `lerna add`
+- We delegate any additions, removals, updates of modules to lerna. It will manage all the dependencies across our different projects
+- NOTE: when adding a dependency, we need to be specific - we need to scope - which module of our projects we want to add this dependency to. If we don't add the `--scope` option, this dependency will be added to all modules and we rarely ever do it this way
+- We're going to add the commander package to our `cli` module. Commander makes it easier to read in command line arguments
+- Install commander to cli: `lerna add commander --scope=cli`
+
+### Linking packages
+- For a typical and standard package/module, in its package.json file, the "main" key is set to "index.js" file. This is the entry file of a package. So if this package is required or imported by another package or program, it's going to look for this index.js file. This is what our bundler is doing when it's trying to import a package
+- We want to link the `cli` package/module to the `local-api` package/module using lerna. In the `cli` package, we want it to have a dependency package of `local-api`
+- Step 1: setup the local-api package
+  - In `local-api` folder:
+    - package.json file: `"main": "index.js"`
+    - index.js file: `module.exports = () => { console.log('server is listening'); }`
+- Step 2: add `local-api` package as a dependency to `cli` package
+  - Run: `lerna add local-api --scope=cli`
+- Step 3: require the `local-api` package and use it
+    - In `cli` folder and in index.js file:
+    -  `const serve = require('local-api'); serve();`
+- The final setup looks like this:
+  - In `local-api` folder:
+    - package.json file: `"main": "index.js"`
+    - index.js file: `module.exports = () => { console.log('server is listening'); }`
+  - In `cli` folder:
+    - package.json file: `"local-api": "1.0.0"`
+    - index.js file: `const serve = require('local-api'); serve();`
+- We can make changes to the `local-api` package as much as we want and we can see these changes reflected in the `cli` package immediately without any extra work. Lerna manages these packages behind the scenes
+- This is the behavior we wanted from lerna. We can now change all these different packages as much as we want in the development environment and instantly see the changes reflected inside of our other projects
+
+
+
+
 
 
 
