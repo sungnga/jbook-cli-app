@@ -828,7 +828,64 @@ The codebase for each step can be found in the commit link
 - Fixing CodeCell vertical resize odd behavior of abruptly snapping shut and open 
 
 
+## JBOOK APP ARCHITECTURE AND LERNA
 
+### jbook app infrastructure
+- On a user's machine:
+  - In the terminal, a user will run: `npx jbook serve`
+  - Then they will see an output: `Open your browser and navigate to localhost:4050`
+- On our side:
+  - When a user runs that command, we're going to launch our CLI program
+  - The CLI is going to start up a Local Node API server
+  - The Local Node API is a small Express server. It has three tasks to perform:
+    - To serve up our React application on localhost:4050.It takes our built React project files (the index.html and compiled index.js) and serves it on the user's machine
+    - To write any changes that a user makes to any cells to a file on a user's machine. An example is when a user tries to save all the changes they make to a cell into a notebook.js file. We're going to send those changes from our React application over to Local Node API and the server will write that update or changes to a given cell into this notebook.js file
+    - To load up that file on a user's machine and provide a listing of all the cells inside that file over to our React application (localhost:4050). That is what is going to allow a user to open up an existing notebook file and see all of those existing cells that they created in the past in their browser
+
+### Parts of our jbook app
+- **CLI:**
+  - Needs to know how to start the Local Node API
+  - Needs to know how to publish a notebook to the Public API
+- **Local Express API:**
+  - Needs to serve up the React app
+  - Need to be able to save/load cells from a file
+- **Public Express API: (future implementation)**
+  - Needs to serve up the React app
+  - Needs to be able to save/load cells from a DB
+  - Needs to handle auth/permission/etc
+- **React App:**
+  - Needs to make its production assets available to either the local API or the public API
+
+### Package based development
+- We are going to develop and deploy each of these parts as separate standalone NPM packages
+- CLI -> jbook
+  - This package can easily be installed on a user's machine
+- Local Express API -> @jbook/local-api
+  - Contains all the code and the implementation needed to run a local API
+- Public Express API -> @jbook/public-api
+  - We won't be building this right now
+- React App -> @jbook/local-client
+  - Package up and deploy as an NPM module
+
+### Lerna CLI
+- Lerna CLI is a tool for managing Javascript projects with multiple packages. It's going to manage all the different packages we build for this project for us
+- Other tools out there similar to Lerna: Yarn Workspaces, NPM Workspaces, Bolt, Luigi
+- We will be using Lerna v3.22.1
+- Install: `npm i -g -save-exact lerna@3.22.1`
+- Lerna docs: npm i -g -save-exact lerna@3.22.1
+
+### Lerna setup
+- We need to restructure our project folder
+- The updated overall project folder:
+  - lerna.json
+  - packages
+    - cli
+    - local-api
+    - local-client (our react app project)
+- Rename our current react app project to `local-client`
+- Outside of the react app project, make a new folder called `mkdir jbook`
+- cd into jbook folder and run: `lerna init`
+- Move the `local-client` folder into `jbook/packages` folder
 
 
 
