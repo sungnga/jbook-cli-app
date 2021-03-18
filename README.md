@@ -922,6 +922,37 @@ The codebase for each step can be found in the commit link
 - We can make changes to the `local-api` package as much as we want and we can see these changes reflected in the `cli` package immediately without any extra work. Lerna manages these packages behind the scenes
 - This is the behavior we wanted from lerna. We can now change all these different packages as much as we want in the development environment and instantly see the changes reflected inside of our other projects
 
+### Adding typescript support to the local-api module
+- It is not recommended to export typescript from an npm module of any kind. And the reason is the file that is trying to import/require the module might be a plain Javascript file and will not be able to read the typescript file. Instead, we need to transpile the typescript code into plain JS using the typescript compiler before exporting it from the package
+- In local-api project folder:
+  - Install typescript as a dev dependency:
+    - `lerna add typescript --dev --scope=local-api`
+  - Generate a tsconfig.js file by running:
+    - `npx typescript --init` (if don't have TS installed globally)
+    - Or run: `tsc --init` (if have TS installed globally)
+    - Configure TS to take the transpiled typescript files and place the result inside of a `dist` directory
+    - In tsconfig.json file, 
+      - Uncomment the "outDir" line and set it to: `"outDir": "./dist",`
+      - Uncomment the "declaration" line: `"declaration": true,`
+  - In package.json file
+    - Add in a script that's going to run the typescript compiler
+    - Update the "main" key and point it to the compiled index.js file inside of dist directory. This is setting the entry point where other people can find the code of this module
+    - Add in a "types" key and point it to the index.d.ts file inside of dist directory. This is telling the typescript of whoever is importing this module that the type definition file for this module can be found here
+    ```js
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+      "start": "tsc --watch --preserveWatchOutput",
+    },
+      ```
+- To test out the typescript support for local-api, cd into local-api directory and run:
+  - `npm start`
+- Now inside of the `local-api` module, we see a `dist` folder. In it has the index.js file and the index.d.ts type definition file. The index.js file contains the transpiled code of this package in Javascript and this is what we are exporting
+
+
+
+
+
 
 
 
