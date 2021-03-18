@@ -968,8 +968,16 @@ The codebase for each step can be found in the commit link
 - We should see a `dist` folder inside the cli project folder and it has a compiled index.js file of the cli package
 - To test out our cli module in Javascript form, cd into dist directory and run: `node index.js`. It should say server is listening
 
-
-
+### Running parallel start scripts with Lerna
+- In package.json file of the root directory (lerna's file), add a start script
+  ```js
+  "scripts": {
+    "start": "lerna run start --parallel"
+  }
+  ```
+- Lerna's start script is going to execute the start script inside of each different packages. Lerna is automatically going into each package and see if they have a defined start script and if they do, it's going to run them all in parallel
+- Currently, we have a start script for all 3 of our projects
+- To test out the parallel start script, cd into the root project directory and run: `npm start`
 
 
 
