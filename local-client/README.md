@@ -872,27 +872,7 @@ The codebase for each step can be found in the commit link
 - Other tools out there similar to Lerna: Yarn Workspaces, NPM Workspaces, Bolt, Luigi
 - We will be using Lerna v3.22.1
 - Install: `npm i -g -save-exact lerna@3.22.1`
-- Lerna docs: npm i -g -save-exact lerna@3.22.1
-
-### Lerna setup
-- We need to restructure our react app project folder
-- The updated overall project folder will look like this:
-  - lerna.json
-  - packages
-    - cli
-    - local-api
-    - local-client (our react app project)
-- Rename our current react app project to `local-client`
-  - Inside the root of jbook-cli-app folder, create a folder called `local-client`. Drag all the files into this folder
-  - In .gitignore file, replace `/node_modules` with `/local-client/node_modules`
-- jbook-cli-app is also the name of Github repo. Don't change the name of this root directory. Else all the commit history of this repo will be lost
-- cd into jbook-cli-app directory and run: `lerna init`
-  - A `packages` folder and a `package.json` file are added to the directory
-- Move the `local-client` folder into `jbook-cli-app/packages` folder
-- Inside `jbook-cli-app/packages` folder, create 2 new folders: cli and local-api
-- cd into `jbook-cli-app/packages/cli` folder and run: `npm init -y`. This will create a package.json file
-- cd into `jbook-cli-app/packages/local-api` folder and run: `npm init -y`. This will create a package.json file
-
+- Lerna docs: https://github.com/lerna/lerna
 
 
 
