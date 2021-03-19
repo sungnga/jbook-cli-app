@@ -1019,6 +1019,42 @@ The codebase for each step can be found in the commit link
   - We're going to import and use the path module (a Node standard library) to help us calculate the absolute path to the filename on a user's file system
 
 
+## ADDING A LOCAL-ONLY API
+
+### The goals of the Local-API module
+- The local-API has three primary tasks:
+- 1. To fetch the React app built assets and to serve up the React application in the user's browser
+  - The local-api is going to be ran on the user's machine when they use our jbook application. Here, we are not running the create-react-app as it is a development server
+  - The route is `GET /` to fetch built production assets (index.html or index.js files) for React app
+- 2. Find the list of cells stored in a file (name provided to the CLI) and send those back to the browser
+  - The route is `GET /cells`
+  - The data to send back to the browser is an array of cell objects
+- 3. Take the updated list of cells from the browser and store them into a file (the same file when the user ran `jbook serve` command)
+  - The route is `POST /cells`
+
+### Adding dependencies and running Express in local-api
+- In local-api project folder:
+  - Use the lerna command to install Express and a type definition for Express into local-api project
+  - With lerna, we can only add one package at a time
+  - `lerna add express --scope=local-api`
+  - `lerna add @types/express --dev --scope=local-api`
+  - `lerna add cors --scope=local-api`
+  - `lerna add @types/cors --dev --scope=local-api`
+  - `lerna add http-proxy-middleware --scope=local-api`
+- Setup Express in local-api project:
+  - We do all of the initial Express setup inside of the serve function
+  - Create an Express app
+  - Set Express server to listen on the port that is provided to the serve function
+- To start up the Express local-api, we have to use our CLI that we put together
+  - cd into packages/cli/dist and run: `node index.js serve`
+
+
+
+
+
+
+
+
 ## JAVASCRIPT TRICKS
 
 #### Generating random ids or unique ids
