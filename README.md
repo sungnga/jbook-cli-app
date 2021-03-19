@@ -1009,8 +1009,14 @@ The codebase for each step can be found in the commit link
 - Inside of the .option() is where we can list out all the different possible ways to specify a port number. We will provide a default port number of 4050 if the user doesn't specify
 - NOTE: our 'serve' command description and a list of options for the 'serve' command will show up in the help page by running: `node index.js serve --help` 
 
-
-
+### Communication from the CLI to the Local API
+- In the serve.ts command, the .action() function now has the filename and port number. These are the two pieces of information (plus the filename directory) we need to communicate over to the local-api
+- The way we do this is, from the local-api package (in index.ts file), we're going to write out and export a function called serve(). This serve function is going to start up an Express server. The arguments to serve() function are the port that we want to run our server on, the name of the file that we want to store cells inside of, and the directory of that file
+- Then we're going to import the serve function into CLI, specifically into the serve command (in serve.ts file). And call the serve function inside of the .action() callback and provide the necessary three argument values, which are the port number, the filename, and the absolute path to the filename
+- Calculating the file path:
+  - We need to calculate the correct path to the file and provide it to the serve function as dir argument
+  - A user should be able to provide a relative path to the file that they want to save or upload, however, we need to figure out the absolute path to that file
+  - We're going to import and use the path module (a Node standard library) to help us calculate the absolute path to the filename on a user's file system
 
 
 ## JAVASCRIPT TRICKS
