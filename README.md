@@ -1023,13 +1023,13 @@ The codebase for each step can be found in the commit link
 
 ### The goals of the Local-API module
 - The local-API has three primary tasks:
-- 1. To fetch the React app built assets and to serve up the React application in the user's browser
+1. To fetch the React app built assets and to serve up the React application in the user's browser
   - The local-api is going to be ran on the user's machine when they use our jbook application. Here, we are not running the create-react-app as it is a development server
   - The route is `GET /` to fetch built production assets (index.html or index.js files) for React app
-- 2. Find the list of cells stored in a file (name provided to the CLI) and send those back to the browser
+2. Find the list of cells stored in a file (name provided to the CLI) and send those back to the browser
   - The route is `GET /cells`
   - The data to send back to the browser is an array of cell objects
-- 3. Take the updated list of cells from the browser and store them into a file (the same file when the user ran `jbook serve` command)
+3. Take the updated list of cells from the browser and store them into a file (the same file when the user ran `jbook serve` command)
   - The route is `POST /cells`
 
 ### Adding dependencies and running Express in local-api
@@ -1060,7 +1060,12 @@ The codebase for each step can be found in the commit link
   - To catch the errors from the serveCommand, we wrap the serve function that's being ran inside of the .action() function with a try/catch statement and mark the serve function as an async function
   - If an error occurs, we print out a simple message from err.message
 
-
+### Displaying usable error feedback to users
+- Look inside of our err catch case, figure out what exactly went wrong, and print out appropriate error massage to the user
+- In cli's serve.ts file:
+  - Print an error message if the port they provide is already in use
+  - Since we cannot start up the Express server we will force an exit out of our program inside the catch block
+  - If they successfully start up an Express server, we may want to provide a direction of what they can do next, like navigate to the localhost of that port and start interact with the cells
 
 
 
