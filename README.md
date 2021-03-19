@@ -1004,7 +1004,10 @@ The codebase for each step can be found in the commit link
   - `lerna add @types/node --dev --scope=cli`
 - To test out our 'serve' command line tool, first run lerna's start script in root directory by running: `npm start`. Then in a separate terminal, cd into packages/cli/dist folder and run: `node index.js serve`. It should print out the serve command description that we created
 
-
+### Specifying command line options
+- We want to specify that it is optional to provide a filename. But we will provide a default filename of 'notebook.js'
+- Inside of the .option() is where we can list out all the different possible ways to specify a port number. We will provide a default port number of 4050 if the user doesn't specify
+- NOTE: our 'serve' command description and a list of options for the 'serve' command will show up in the help page by running: `node index.js serve --help` 
 
 
 
