@@ -10,8 +10,8 @@ var serve = function (port, filename, dir) {
     // console.log('saving/fetching cells from', filename);
     // console.log('that file is in dir', dir);
     var app = express_1.default();
-    app.listen(port, function () {
-        console.log('Listening on port ', port);
+    return new Promise(function (resolve, reject) {
+        app.listen(port, resolve).on('error', reject);
     });
 };
 exports.serve = serve;
