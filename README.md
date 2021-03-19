@@ -980,7 +980,29 @@ The codebase for each step can be found in the commit link
 - To test out the parallel start script, cd into the root project directory and run: `npm start`
 
 
+## CREATING A CLI
 
+### Reading command line arguments
+- Our CLI is going to be a program that a user is going to run from their terminal. For example, when a user runs the command `jbook serve`, we're going to run the code inside of our cli package. Inside that package, a code is going to start up our local-api
+- This CLI command also has some options/arguments for our users to use, where they can save their code cells into a file on their machine or upload their code cell file. For example, when a user runs the command `jbook serve mynotes.js`, we want to look for this file in their current directory and load this file
+- This CLI command lets users to serve up on a different port instead of the default port we set. For example, serve on port 3050: `jbook serve mynotes.js --port 3050` or `jbook serve --port 3050`
+- So we want to be able to read in these different command line arguments and customize our CLI program in a specific way
+- We can get all of the arguments that the user types in the command line with the help of the Commander.js library
+- Install commander to cli: `lerna add commander --scope=cli`
+
+### Using Commander to build a CLI
+- In Commander library, a command describes a command that we can invoke from the command line
+- The serve.ts is a file that describes what to do when a user runs the 'serve' command
+- In serve.ts file, we start out with a basic command
+  - Import the Command class from Commander library
+  - Instantiates a new command instance
+  - Calls the .command() method on 'serve'
+  - Calls the .description() method that describes what this command does
+  - Calls the .action() method that processes the command
+- Import the serve.ts command in cli's index.ts file. This is where we assemble all the parts into an actual command line tool
+- We need install the Node type definition file in `cli` project
+  - `lerna add @types/node --dev --scope=cli`
+- To test out our 'serve' command line tool, first run lerna's start script in root directory by running: `npm start`. Then in a separate terminal, cd into packages/cli/dist folder and run: `node index.js serve`. It should print out the serve command description that we created
 
 
 
