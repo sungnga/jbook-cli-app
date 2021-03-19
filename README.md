@@ -1097,6 +1097,36 @@ The codebase for each step can be found in the commit link
   - Make sure to run lerna's start script and
   - Run `node index.js serve` command line in cli/dist directory
 
+### Building a production bundle and serving it via local-api
+- Solution to scenario one: If we're running the React app on a user's machine, we want local-api to serve up the built files from `build` directory
+  - In this scenario, there is no create-react-app server. All we have access to are the built React files (index.html and index.js)
+  - To get the build production version of the React files, cd into the packages/local-client directory and run: `npm run build`
+  - Now inside of packages/local-client project we see a `build` folder. This folder contains all of the React production assets
+  - Essentially, we want the contents in this `build` folder be available to the local-api package. The local-api can then serve up the contents of this folder
+  - To do this, we will first need to link up the local-client package to the local-api package. In the local-api package, we will add the local-client package as a dependency, just the way we added the local-api package as dependency to the cli package
+    - Run: `lerna add local-client --scope=local-api`
+  - By adding local-client package as a dependency, the local-api now has direct access to the React app's `build` folder (in node_modules/local-client/build)
+  - Then we will make use of Express's static middleware. This middleware will automatically serve up all files in a directory. We call the static middleware and pass to it as an argument, the absolute path to the directory where we want it to serve
+  - In local-api's index.ts file:
+    ```ts
+    import path from 'path';
+
+    const app = express();
+
+    // Applies Node's path resolution algorithm to
+    // figure out the absolute path to index.html file
+    // local-client/build/.. is inside of node_modules folder
+    const packagePath = require.resolve('local-client/build/index.html');
+    // path.dirname() will give us everything up to build folder
+    // excluding the index.html file
+    app.use(express.static(path.dirname(packagePath)));
+    ```
+
+
+
+
+
+
 
 
 
