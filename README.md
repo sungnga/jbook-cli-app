@@ -1023,14 +1023,14 @@ The codebase for each step can be found in the commit link
 
 ### The goals of the Local-API module
 - The local-API has three primary tasks:
-1. To fetch the React app built assets and to serve up the React application in the user's browser
-  - The local-api is going to be ran on the user's machine when they use our jbook application. Here, we are not running the create-react-app as it is a development server
-  - The route is `GET /` to fetch built production assets (index.html or index.js files) for React app
-2. Find the list of cells stored in a file (name provided to the CLI) and send those back to the browser
-  - The route is `GET /cells`
-  - The data to send back to the browser is an array of cell objects
-3. Take the updated list of cells from the browser and store them into a file (the same file when the user ran `jbook serve` command)
-  - The route is `POST /cells`
+  - To fetch the React app built assets and to serve up the React application in the user's browser
+    - The local-api is going to be ran on the user's machine when they use our jbook application. Here, we are not running the create-react-app as it is a development server
+    - The route is `GET /` to fetch built production assets (index.html or index.js files) for React app
+  - Find the list of cells stored in a file (name provided to the CLI) and send those back to the browser
+    - The route is `GET /cells`
+    - The data to send back to the browser is an array of cell objects
+  - Take the updated list of cells from the browser and store them into a file (the same file when the user ran `jbook serve` command)
+    - The route is `POST /cells`
 
 ### Adding dependencies and running Express in local-api
 - In local-api project folder:
@@ -1067,8 +1067,35 @@ The codebase for each step can be found in the commit link
   - Since we cannot start up the Express server we will force an exit out of our program inside the catch block
   - If they successfully start up an Express server, we may want to provide a direction of what they can do next, like navigate to the localhost of that port and start interact with the cells
 
+### Accessing the React app
+- The Express app of the local-api needs to load up our React application inside the browser. There are 2 different scenarios in which we're going to load the React app in the browser
+- Scenario one is when we deployed our jbook application as an NPM package and a user installs it onto their local machine as a CLI and they run `jbook serve`. This is when we need to load up the React build files in the browser
+- Scenario two is when we are doing active development of our project in create-react-app. When we make changes/updates to our react app, we want to the updates appear in the browser. So the browser, in the development environment, makes a request to the local-api and route the request over to the running create-react-app dev server to get dev the files and load it in the browser
 
+### Connecting the proxy
+- Solution to scenario two: If we are actively developing our app on our local machine, we want to use a proxy to local create-react-app dev server
+  - We're going to make a proxy inside of the local-api. Whenever we receive a request from the browser that is not a request to fetch a list of cells or a request to save a list of cells, then we will assume it's a request to the create-react-app dev server and get some development files
+  - So we're going to proxy that incoming request over to localhost:3000, which is where our react application is running
+  - This proxy is going to forward the request over, get the dev files from create-react-app dev server, and send back the response back to the browser automatically
+  - This proxy is going to be implemented with the package http-proxy-middleware that we already installed in the local-api project 
+  - After we created the Express app, we wire up this proxy middleware and configure this proxy
+  - In local-api's index.ts file:
+    ```ts
+    import { createProxyMiddleware } from 'http-proxy-middleware';
 
+    const app = express();
+
+    app.use(
+      createProxyMiddleware({
+        target: 'http://localhost:3000',
+        ws: true, //enable web socket support. Listen for changes in react app
+        logLevel: 'silent' //turn off all logs of incoming requests
+      })
+    );
+    ```
+- Now when we visit localhost:3000 and localhost:4050, we see our react application is running in both browsers
+  - Make sure to run lerna's start script and
+  - Run `node index.js serve` command line in cli/dist directory
 
 
 
