@@ -1175,6 +1175,21 @@ The codebase for each step can be found in the commit link
 ### Handling fetch cell types
 - Handle the three fetch cell types inside the cells reducer function
 
+### Saving a list of cells
+- Save a list of cells to our API
+- Process of saving cells:
+  - User changes something in their notebook
+  - Combine together 'data' and 'order' properties in action creator into a 'cells array'
+  - Make request to API to persist that list of cell
+  - Dispatch action if something went wrong
+- We only need to define one action type and interface for saving cells
+- Add in a saveCells action creator
+- Handle the save cells error type inside the cells reducer function
+
+
+
+
+
 
 
 
