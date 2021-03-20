@@ -1139,7 +1139,11 @@ The codebase for each step can be found in the commit link
 - Write a createCellsRouter function and use Express's router object to create the GET method router and the POST method router
 - In Express app, call the createCellsRouter() function and pass in the filename and dir as arguments
 
-
+### Writing cells to a file
+- We're going to use the fs module that's included in the Node standard library to write cells to a file on a user's machine
+- If we import the fs module from fs/promises library, we can make use of async/await instead of callbacks
+- Take the list of cells from the request object and serialize them. Then write the cells into the file 
+- Provide the absolute path to the file to be written to
 
 
 
