@@ -1134,7 +1134,10 @@ The codebase for each step can be found in the commit link
   - In the serve() function, pass in `!isProduction` as a 4th arg. This means we're in local development mode and using proxy to serve up the React app in the browser
 - Eventually when we deploy our CLI package to NPM registry, we will add in a script to check for all `process.env.NODE_ENV` variables and reference it to 'production'. This will ensure that a user cannot alter the NODE_ENV variable
 
-
+### Creating the cells router
+- Now we're going to work on the other two tasks of the local-api package, which are to retrieve a list of cells out of a stored file and add a list of cells into an existing file
+- Write a createCellsRouter function and use Express's router object to create the GET method router and the POST method router
+- In Express app, call the createCellsRouter() function and pass in the filename and dir as arguments
 
 
 
