@@ -1206,6 +1206,41 @@ The codebase for each step can be found in the commit link
   - If another action is dispatched during that amount of time, we clear the timer and reset it
 
 
+## PUBLISHING TO NPM
+
+### Getting ready to deploy
+- The steps:
+  - Make sure our package name is unique
+    - Inside package.json, "name" key must be unique to NPM registry
+  - Specify which files should be sent to NPM when we publish
+    - Inside package.json, add a "files" key. It's a string array that contains the name of the directory
+  - Split our 'dependencies' and 'devDependencies'
+    - Move any dependencies in the "dependencies" to the "devDependencies" list if we don't intend to publish them
+  - Set our package to be publicly accessible
+    - Inside package.json, add a "publishConfig" key. It's an object and put in it `"access": "public"`
+    - Now anyone can install this package onto their machine
+  - If building a CLI, configure the file to run
+    - We need to configure which file to run when a user tries to the package directly from the terminal
+    - Inside package.json, add a "bin" key and specify which file we want it to run. Usually it's going to be the `"dist/index.js"` file
+    - In addition to this, we need to add a configuration to the main index.ts (in src/index.ts) file of the package. Add this at the top of the file: `#!/usr/bin/env node`. This will allow us to directly execute this file without typing out `node index.ts`
+  - Add a 'prePublish' script
+    - When we run 'npm publish', if a 'prePublish' script is defined, NPM will execute this script first
+    - Inside this 'prePublish' script, we can say that we want to build this package. This will ensure that we will always deploying the latest version of the package
+    - Inside package.json and inside the "scripts" object, add in a "prepublishOnly" key and set it to "npm run build". This will build the project using the "build" script, which is right above it
+  - Commit to git
+    - In the terminal, run: `git init`
+    - Inside the package root directory, add a .gitignore file and add in `dist` and `node_modules`
+    - Run: `git add .`
+    - Run: `git commit -m "Initial commit"`
+  - Run 'npm publish'!
+    - In order to run 'npm publish', must be logged in to the npm CLI
+    - If not logged in, run: `npm login` and enter in credentials
+    - Create an account at npmjs.com
+    - Once logged in, run: `npm publish`
+- Once published:
+  - To download a package onto a local machine, run: `npx <package-name>`
+  - To install a package globally, run: `npm install -g <package-name>`
+
 
 
 ## JAVASCRIPT TRICKS
