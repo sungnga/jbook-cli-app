@@ -1186,7 +1186,10 @@ The codebase for each step can be found in the commit link
 - Add in a saveCells action creator
 - Handle the save cells error type inside the cells reducer function
 
-
+### Calling fetchCells in CellList component
+- Whenever we're about to show the CellList component on the screen, we want to call the fetchCell action creator
+- To get access to an action creator inside a component, call useAction() hook
+- We want to make sure that we only call fetchCell action creator when the CellList component first renders to the screen. So we call it inside of the useEffect() hook
 
 
 

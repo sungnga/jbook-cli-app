@@ -1,8 +1,9 @@
 import './CellList.css';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import AddCell from './AddCell';
 import CellListItem from './CellListItem';
+import { useActions } from '../hooks/useActions';
 
 const CellList: React.FC = () => {
 	// const cells = useTypedSelector(({ cells: { order, data } }) => {
@@ -10,6 +11,11 @@ const CellList: React.FC = () => {
 	// });
 
 	const { order, data } = useTypedSelector((state) => state.cells);
+	const { fetchCells } = useActions();
+
+	useEffect(() => {
+		fetchCells();
+	}, [fetchCells]);
 
 	const cells = order.map((id) => data[id]);
 

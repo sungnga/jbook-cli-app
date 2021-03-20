@@ -15,7 +15,7 @@ export const createCellsRouter = (filename: string, dir: string) => {
 
 	const fullPath = path.join(dir, filename);
 
-	router.get('./cells', async (req, res) => {
+	router.get('/cells', async (req, res) => {
 		try {
 			// Read the file
 			const result = await fs.readFile(fullPath, { encoding: 'utf-8' });
