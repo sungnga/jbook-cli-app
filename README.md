@@ -1191,6 +1191,15 @@ The codebase for each step can be found in the commit link
 - To get access to an action creator inside a component, call useAction() hook
 - We want to make sure that we only call fetchCell action creator when the CellList component first renders to the screen. So we call it inside of the useEffect() hook
 
+### Saving a list of cells with saveCells middleware
+- With our current setup in CellList component, we don't want to call saveCells() whenever a user makes a change to the cells array. We don't want to trigger the saveCells() function for every single key press in the code editor or text editor
+- Instead, we need to create a saveCells/persist middleware that will watch for certain action types that modify the list of cells that are stored inside of the cells state. These action types are:
+  - MOVE_CELL
+  - UPDATE_CELL
+  - INSERT_CELL_AFTER
+  - DELETE_CELL
+- If the persistMiddleware detects the incoming action matches with one of these action types, it will dispatch the saveCells() action creator to save the list of cells
+
 
 
 
