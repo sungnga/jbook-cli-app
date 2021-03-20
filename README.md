@@ -1122,7 +1122,17 @@ The codebase for each step can be found in the commit link
     app.use(express.static(path.dirname(packagePath)));
     ```
 
-
+### Determining our execution environment
+- In local-api's index.ts file, we're going to add a 4th argument to the serve function, a boolean `useProxy` argument
+  - Write an if statement to check if useProxy is true
+  - If it is, use proxy to local CRV dev server
+  - Else, serve up built files from build directory
+- Then inside of our CLI, we need to ask this question: Are we on our local machine (running dev mode) or are we in production (running on a user's machine)? This will decide how we serve up our React app in the browser
+- We're going to look at `process.env.NODE_ENV` variable. NODE_ENV is traditionally set to be a string of development, testing or production. We can use this environment variable to decide what environment we are in
+- In cli's serve.ts file:
+  - Add a `process.env.NODE_ENV` variable and set it to the string 'production' and assign its value to `isProduction` variable
+  - In the serve() function, pass in `!isProduction` as a 4th arg. This means we're in local development mode and using proxy to serve up the React app in the browser
+- Eventually when we deploy our CLI package to NPM registry, we will add in a script to check for all `process.env.NODE_ENV` variables and reference it to 'production'. This will ensure that a user cannot alter the NODE_ENV variable
 
 
 
