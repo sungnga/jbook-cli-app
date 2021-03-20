@@ -1151,6 +1151,22 @@ The codebase for each step can be found in the commit link
 - If the file doesn't exist, we're going to create a file and add default cells to it 
 
 
+## DATA PERSISTENCE
+
+### Adding fetch cell logic to Redux
+- We're going to be adding in a couple of actions (action types and action creators) to save cells and fetch cells in our Redux
+- The process of fetching cells when our app first starts up:
+  - App starts up - when a user visits localhost:port#
+  - Start fetching cells from the API
+  - Dispatch action to flip 'loading' to true
+  - Make request to API
+  - Dispatch action to set the list of cells or err
+- First, we're going to add in the ability to fetch a list of cells from our API
+- Define 3 fetch cells action types and action interfaces
+
+
+
+
 
 
 
