@@ -1164,7 +1164,13 @@ The codebase for each step can be found in the commit link
 - First, we're going to add in the ability to fetch a list of cells from our API
 - Define 3 fetch cells action types and action interfaces
 
-
+### Adding fetch cells action creator
+- We're going to use axios to make our network request
+- The fetchCells action creator goes through the process of fetching cells:
+  - Dispatches the FETCH_CELLS action type
+  - Makes the request using axios in a try/catch statement
+  - If it gets back the data, dispatch the FETCH_CELLS_COMPLETE action type with a payload of the data that it got back from the request
+  - If it gets back an error from the request, dispatch a ETCH_CELLS_ERROR action type with a payload of the error message
 
 
 
