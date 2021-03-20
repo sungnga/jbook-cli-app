@@ -1172,8 +1172,8 @@ The codebase for each step can be found in the commit link
   - If it gets back the data, dispatch the FETCH_CELLS_COMPLETE action type with a payload of the data that it got back from the request
   - If it gets back an error from the request, dispatch a ETCH_CELLS_ERROR action type with a payload of the error message
 
-
-
+### Handling fetch cell types
+- Handle the three fetch cell types inside the cells reducer function
 
 
 
