@@ -1200,7 +1200,10 @@ The codebase for each step can be found in the commit link
   - DELETE_CELL
 - If the persistMiddleware detects the incoming action matches with one of these action types, it will dispatch the saveCells() action creator to save the list of cells
 
-
+### Adding debouncing save logic
+- Right now we are able to save a list of cells, but we are saving with every single key press. So to limit the number of requests we make we're going to add in some debouncing logic
+- Inside of the persistMiddle function, wrap the saveCells() function inside of a setTimeout() function. This allows us to call the saveCells() function after a certain amount of time
+  - If another action is dispatched during that amount of time, we clear the timer and reset it
 
 
 
