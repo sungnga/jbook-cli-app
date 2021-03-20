@@ -1145,6 +1145,15 @@ The codebase for each step can be found in the commit link
 - Take the list of cells from the request object and serialize them. Then write the cells into the file 
 - Provide the absolute path to the file to be written to
 
+### Reading file contents
+- We're going to read the file from a user's machine using fs module, parse a list of cells out of it, and send the cell list back to the browser
+- Use a try/catch statement to catch the read file error
+- If the file doesn't exist, we're going to create a file and add default cells to it 
+
+
+
+
+
 
 
 ## JAVASCRIPT TRICKS
