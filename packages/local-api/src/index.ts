@@ -13,8 +13,8 @@ export const serve = (
 	// console.log('saving/fetching cells from', filename);
 	// console.log('that file is in dir', dir);
 
-  const app = express();
-  
+	const app = express();
+
 	app.use(createCellsRouter(filename, dir));
 
 	if (useProxy) {
@@ -29,7 +29,9 @@ export const serve = (
 		// Applies Node's path resolution algorithm to
 		// figure out the absolute path to index.html file
 		// local-client/build/.. is inside of node_modules folder
-		const packagePath = require.resolve('local-client/build/index.html');
+		const packagePath = require.resolve(
+			'@jsnotebook-cli/local-client/build/index.html'
+		);
 		// path.dirname() will give us everything up to build folder
 		// excluding the index.html file
 		app.use(express.static(path.dirname(packagePath)));

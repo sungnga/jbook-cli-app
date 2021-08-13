@@ -1,20 +1,6 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/packages/local-client/node_modules
-/packages/local-api/node_modules
-/packages/cli/node_modules
-
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# production
-/packages/cli/dist
-/packages/local-api/dist
-/packages/local-client/build
+build
+dist
+node_modules
 
 # misc
 .DS_Store
