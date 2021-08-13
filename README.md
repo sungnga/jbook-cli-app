@@ -1209,7 +1209,7 @@ The codebase for each step can be found in the commit link
 
 ## PUBLISHING TO NPM
 
-### [121. Getting ready to deploy](https://github.com/sungnga/jbook-cli-app/commit/98e2580c5878ab2312b1915e2d5d472ebf1e8d7e?ts=2)
+### [121. Getting ready to deploy](https://github.com/sungnga/jbook-cli-app/commit/4718909dc66f5d1961036d0940c337c45f4e20f6?ts=2)
 #### The steps:
 **1. Create a new organization at NPM Registry**
   - Sign into your npm account at npmjs.com
@@ -1387,7 +1387,7 @@ The codebase for each step can be found in the commit link
   - Inside the root directory again, create a .gitignore file and add in it: `build`, `dist`, and `node_modules`
   - Run: `git add .`
   - Run: `git commit -m "Initial commit"`
-  
+
 **11. Publishing to NPM with lerna**
   - We're now ready to push all of our packages to NPM
   - In the root directory, run: `lerna publish --no-push`
