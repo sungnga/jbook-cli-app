@@ -25,7 +25,7 @@ var serve = function (port, filename, dir, useProxy) {
         // Applies Node's path resolution algorithm to
         // figure out the absolute path to index.html file
         // local-client/build/.. is inside of node_modules folder
-        var packagePath = require.resolve('local-client/build/index.html');
+        var packagePath = require.resolve('@jsnotebook-cli/local-client/build/index.html');
         // path.dirname() will give us everything up to build folder
         // excluding the index.html file
         app.use(express_1.default.static(path_1.default.dirname(packagePath)));

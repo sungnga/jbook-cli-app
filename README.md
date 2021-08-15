@@ -1224,7 +1224,7 @@ The codebase for each step can be found in the commit link
     - The "name" key is: ` "name": "@jsnotebook-cli/local-api",`
     - This package is considered a scope to the cli package
   - Inside local-client/package.js file:
-    - The "name" key is: `  "name": "@jsnotebook-cli/local-client",`
+    - The "name" key is: `"name": "@jsnotebook-cli/local-client",`
     - This package is considered a scope to the cli package
 
 **3. Refactoring package names**
