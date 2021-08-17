@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@jsnotebook-cli/local-client": "^1.0.0"
+    "@jsnotebook-cli/local-client": "^2.0.0"
   },
   "devDependencies": {
     "@jsnotebook-cli/local-api": "^2.0.0",
